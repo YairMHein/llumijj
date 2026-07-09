@@ -7,13 +7,16 @@ export type CartItem = {
   price: number;
   image_url: string;
   quantity: number;
+  variant_id?: string | null;
+  variant_size?: string | null;
+  sku?: string | null;
 };
 
 type CartCtx = {
   items: CartItem[];
   add: (item: Omit<CartItem, "quantity">, qty?: number) => void;
-  remove: (id: string) => void;
-  setQty: (id: string, qty: number) => void;
+  remove: (id: string, variantId?: string | null) => void;
+  setQty: (id: string, qty: number, variantId?: string | null) => void;
   clear: () => void;
   count: number;
   subtotal: number;
@@ -21,6 +24,9 @@ type CartCtx = {
 
 const Ctx = createContext<CartCtx | null>(null);
 const KEY = "llumi.cart.v1";
+
+const sameLine = (a: CartItem, id: string, variantId?: string | null) =>
+  a.id === id && (a.variant_id ?? null) === (variantId ?? null);
 
 export function CartProvider({ children }: { children: ReactNode }) {
   const [items, setItems] = useState<CartItem[]>([]);
@@ -40,15 +46,19 @@ export function CartProvider({ children }: { children: ReactNode }) {
     items,
     add: (item, qty = 1) =>
       setItems((prev) => {
-        const found = prev.find((p) => p.id === item.id);
-        if (found) return prev.map((p) => (p.id === item.id ? { ...p, quantity: p.quantity + qty } : p));
+        const found = prev.find((p) => sameLine(p, item.id, item.variant_id));
+        if (found)
+          return prev.map((p) => (sameLine(p, item.id, item.variant_id) ? { ...p, quantity: p.quantity + qty } : p));
         return [...prev, { ...item, quantity: qty }];
       }),
-    remove: (id) => setItems((prev) => prev.filter((p) => p.id !== id)),
-    setQty: (id, qty) =>
+    remove: (id, variantId) => setItems((prev) => prev.filter((p) => !sameLine(p, id, variantId))),
+    setQty: (id, qty, variantId) =>
       setItems((prev) =>
-        qty <= 0 ? prev.filter((p) => p.id !== id) : prev.map((p) => (p.id === id ? { ...p, quantity: qty } : p)),
+        qty <= 0
+          ? prev.filter((p) => !sameLine(p, id, variantId))
+          : prev.map((p) => (sameLine(p, id, variantId) ? { ...p, quantity: qty } : p)),
       ),
+
     clear: () => setItems([]),
     count: items.reduce((s, i) => s + i.quantity, 0),
     subtotal: items.reduce((s, i) => s + i.price * i.quantity, 0),
@@ -63,9 +73,7 @@ export function useCart() {
   return ctx;
 }
 
-// Internal product prices are stored as small numerics; display in MMK.
-const USD_TO_MMK = 4500;
+// Product prices are stored in MMK.
 export const formatMoney = (n: number) => {
-  const mmk = Math.round(n * USD_TO_MMK);
-  return `${new Intl.NumberFormat("en-US").format(mmk)} MMK`;
+  return `${new Intl.NumberFormat("en-US").format(Math.round(n))} MMK`;
 };

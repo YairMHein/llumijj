@@ -70,24 +70,34 @@ export function CartDrawer({ open, onClose }: { open: boolean; onClose: () => vo
           <>
             <ul className="flex-1 divide-y divide-border overflow-y-auto px-5">
               {items.map((i) => (
-                <li key={i.id} className="flex gap-4 py-5">
+                <li key={`${i.id}:${i.variant_id ?? ""}`} className="flex gap-4 py-5">
                   <img src={resolveProductImage(i.image_url)} alt="" className="h-24 w-20 object-cover" />
                   <div className="flex flex-1 flex-col">
                     <div className="flex justify-between gap-3">
-                      <h3 className="font-serif text-base">{i.name}</h3>
+                      <div>
+                        <h3 className="font-serif text-base">{i.name}</h3>
+                        {(i.variant_size || i.sku) && (
+                          <p className="mt-0.5 text-[10px] tracking-luxe text-muted-foreground">
+                            {i.variant_size ? `Size ${i.variant_size}` : null}
+                            {i.variant_size && i.sku ? " · " : ""}
+                            {i.sku ? `SKU ${i.sku}` : null}
+                          </p>
+                        )}
+                      </div>
                       <span className="text-sm">{formatMoney(i.price * i.quantity)}</span>
                     </div>
                     <div className="mt-auto flex items-center justify-between">
                       <div className="inline-flex items-center border border-border">
-                        <button className="h-7 w-7 text-sm" onClick={() => setQty(i.id, i.quantity - 1)}>−</button>
+                        <button className="h-7 w-7 text-sm" onClick={() => setQty(i.id, i.quantity - 1, i.variant_id)}>−</button>
                         <span className="w-7 text-center text-xs">{i.quantity}</span>
-                        <button className="h-7 w-7 text-sm" onClick={() => setQty(i.id, i.quantity + 1)}>+</button>
+                        <button className="h-7 w-7 text-sm" onClick={() => setQty(i.id, i.quantity + 1, i.variant_id)}>+</button>
                       </div>
-                      <button onClick={() => remove(i.id)} className="text-[10px] tracking-luxe text-muted-foreground hover:text-foreground">Remove</button>
+                      <button onClick={() => remove(i.id, i.variant_id)} className="text-[10px] tracking-luxe text-muted-foreground hover:text-foreground">Remove</button>
                     </div>
                   </div>
                 </li>
               ))}
+
             </ul>
             <div className="border-t border-border p-5">
               <div className="flex justify-between text-sm">

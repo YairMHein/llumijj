@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { Facebook, Instagram, Mail } from "lucide-react";
-import logo from "@/assets/llumi-mark.png";
+// Logo removed — footer now text-only
 
 function TikTokIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
@@ -31,13 +31,10 @@ function KbzPayMark() {
 
 export function SiteFooter() {
   return (
-    <footer className="mt-24 border-t border-border bg-foreground text-background">
+    <footer className="mt-24 border-t border-border text-background" style={{ backgroundColor: "#930f31" }}>
       <div className="mx-auto grid max-w-7xl gap-10 px-5 py-14 md:grid-cols-4 md:px-8">
         <div className="md:col-span-1">
-          <div className="flex items-center gap-2">
-            <img src={logo} alt="" className="h-6 w-6 invert" />
-            <span className="font-serif text-xl">LLUMI</span>
-          </div>
+          <span className="font-serif text-xl">LLUMI</span>
           <p className="mt-4 max-w-sm font-serif text-2xl leading-tight">Wear your story.</p>
           <p className="mt-3 max-w-sm text-sm text-background/70">
             Heirloom-quality 925 silver jewellery, crafted in small batches and finished by hand.

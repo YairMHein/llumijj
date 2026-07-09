@@ -4,7 +4,8 @@ import { useMemo, useState } from "react";
 import { toast } from "sonner";
 import { Layout } from "@/components/Layout";
 import { ProductCard } from "@/components/ProductCard";
-import { fetchProductBySlug, fetchProducts } from "@/lib/products";
+import { fetchProductBySlug, fetchProducts, sortedPhotos, sortedVariants, variantPrice } from "@/lib/products";
+import { fetchCollectionsByProductId } from "@/lib/collections";
 import { resolveProductImage, resolveWornImage } from "@/lib/product-images";
 import { useCart, formatMoney } from "@/lib/cart";
 import packaging from "@/assets/packaging.jpg";
@@ -21,6 +22,8 @@ function ProductPage() {
   const { add } = useCart();
   const [qty, setQty] = useState(1);
   const [activeIdx, setActiveIdx] = useState(0);
+  const [selectedVariantId, setSelectedVariantId] = useState<string | null>(null);
+
 
   const { data: product, isLoading } = useQuery({
     queryKey: ["product", slug],
@@ -33,15 +36,26 @@ function ProductPage() {
     enabled: !!product,
   });
 
+  const { data: productCollections = [] } = useQuery({
+    queryKey: ["product-collections", product?.id],
+    queryFn: () => fetchCollectionsByProductId(product!.id),
+    enabled: !!product,
+  });
+
   const gallerySrcs = useMemo(() => {
-    if (!product) return [] as string[];
+    if (!product) return [] as Array<{ url: string; type: "image" | "video" }>;
+    const dbPhotos = sortedPhotos(product).map((p) => ({
+      url: p.image_url,
+      type: (p.media_type === "video" ? "video" : "image") as "image" | "video",
+    }));
+    if (dbPhotos.length > 0) return dbPhotos;
     return [
-      resolveProductImage(product.image_url),
-      resolveWornImage(product.category),
-      gallery,
-      lifestyle,
-      packaging,
-      packagingOpen,
+      { url: resolveProductImage(product.image_url), type: "image" as const },
+      { url: resolveWornImage(product.category), type: "image" as const },
+      { url: gallery, type: "image" as const },
+      { url: lifestyle, type: "image" as const },
+      { url: packaging, type: "image" as const },
+      { url: packagingOpen, type: "image" as const },
     ];
   }, [product]);
 
@@ -52,31 +66,96 @@ function ProductPage() {
       .slice(0, 4);
   }, [related, product]);
 
+  const specs = useMemo(() => {
+    if (!product) return [] as Array<{ label: string; value: string }>;
+    const material = product.material || (product.metal ? `${product.metal} 925 Silver` : "925 Sterling Silver");
+    const finishing = product.metal === "gold"
+      ? "18k Gold plated, hand-polished"
+      : product.metal === "blue"
+      ? "Rhodium plated, sapphire-tone finish"
+      : "Hand-polished high shine";
+    const sizeByCat: Record<string, string> = {
+      rings: "US 5 – 9 (resizing available)",
+      necklaces: "Chain 40cm + 5cm extender",
+      bracelets: "16cm – 19cm adjustable",
+      earrings: "Drop 12mm · Post 10k gold",
+    };
+    const weightByCat: Record<string, string> = {
+      rings: "2.4 g",
+      necklaces: "4.8 g",
+      bracelets: "5.6 g",
+      earrings: "1.8 g (pair)",
+    };
+    return [
+      { label: "Material", value: material },
+      { label: "Finishing", value: finishing },
+      { label: "Size", value: sizeByCat[product.category] ?? "One size" },
+      { label: "Weight", value: weightByCat[product.category] ?? "—" },
+    ];
+  }, [product]);
+
   if (isLoading) return <Layout><div className="mx-auto max-w-7xl px-8 py-24 text-sm text-muted-foreground">Loading…</div></Layout>;
   if (!product) return <Layout><div className="mx-auto max-w-7xl px-8 py-24"><p>Not found.</p><Link to="/shop" className="underline">Back to shop</Link></div></Layout>;
 
-  const onSale = product.sale_price != null;
-  const price = onSale ? Number(product.sale_price) : Number(product.price);
+  const variants = sortedVariants(product);
+  const selectedVariant = variants.find((v) => v.id === selectedVariantId) ?? null;
+  const onSale = selectedVariant
+    ? selectedVariant.sale_price != null
+    : product.sale_price != null;
+  const basePrice = selectedVariant
+    ? Number(selectedVariant.price)
+    : Number(product.price);
+  const price = selectedVariant
+    ? variantPrice(selectedVariant)
+    : onSale
+    ? Number(product.sale_price)
+    : Number(product.price);
+  const displaySku = selectedVariant?.sku ?? product.sku ?? null;
+
 
   return (
     <Layout>
-      <section className="mx-auto grid max-w-7xl gap-10 px-5 py-12 md:grid-cols-[1.2fr_1fr] md:px-8">
+      <section className="mx-auto grid max-w-6xl gap-8 px-5 py-10 md:grid-cols-[1fr_1fr] md:px-8">
         {/* Gallery */}
-        <div className="flex gap-4">
-          <div className="hidden flex-col gap-3 md:flex">
+        <div className="flex gap-3">
+          <div className="hidden flex-col gap-2 md:flex">
             {gallerySrcs.map((src, i) => (
               <button
                 key={i}
                 onClick={() => setActiveIdx(i)}
-                className={`block h-20 w-20 shrink-0 overflow-hidden border ${i === activeIdx ? "border-foreground" : "border-border opacity-70 hover:opacity-100"}`}
-                aria-label={`View image ${i + 1}`}
+                className={`relative block h-14 w-14 shrink-0 overflow-hidden border ${i === activeIdx ? "border-foreground" : "border-border opacity-70 hover:opacity-100"}`}
+                aria-label={`View media ${i + 1}`}
               >
-                <img src={src} alt="" className="h-full w-full object-cover" />
+                {src.type === "video" ? (
+                  <>
+                    <video src={src.url} muted playsInline preload="metadata" className="h-full w-full object-cover" />
+                    <span className="pointer-events-none absolute inset-0 flex items-center justify-center bg-black/20 text-[10px] text-white">▶</span>
+                  </>
+                ) : (
+                  <img src={src.url} alt="" className="h-full w-full object-cover" />
+                )}
               </button>
             ))}
           </div>
           <div className="flex-1 bg-muted">
-            <img src={gallerySrcs[activeIdx]} alt={product.name} width={1024} height={1280} className="h-full max-h-[720px] w-full object-cover" />
+            {gallerySrcs[activeIdx]?.type === "video" ? (
+              <video
+                key={gallerySrcs[activeIdx].url}
+                src={gallerySrcs[activeIdx].url}
+                controls
+                autoPlay
+                playsInline
+                className="aspect-[4/5] max-h-[520px] w-full bg-black object-contain"
+              />
+            ) : (
+              <img
+                src={gallerySrcs[activeIdx]?.url}
+                alt={product.name}
+                width={800}
+                height={1000}
+                className="aspect-[4/5] max-h-[520px] w-full object-cover"
+              />
+            )}
           </div>
         </div>
 
@@ -84,12 +163,66 @@ function ProductPage() {
           <p className="text-[11px] tracking-luxe text-muted-foreground">{product.category}</p>
           <h1 className="mt-3 font-serif text-5xl">{product.name}</h1>
           <div className="mt-4 flex items-baseline gap-3 text-lg">
-            {onSale && <span className="text-muted-foreground line-through">{formatMoney(Number(product.price))}</span>}
+            {onSale && <span className="text-muted-foreground line-through">{formatMoney(basePrice)}</span>}
             <span className="font-medium">{formatMoney(price)}</span>
             {onSale && <span className="bg-sale px-2 py-0.5 text-[10px] tracking-luxe text-sale-foreground">Sale</span>}
           </div>
           <p className="mt-2 text-xs tracking-luxe text-muted-foreground">{product.material}</p>
+          {displaySku && (
+            <p className="mt-1 text-[11px] tracking-luxe text-muted-foreground">SKU · {displaySku}</p>
+          )}
           <p className="mt-6 max-w-md text-muted-foreground">{product.description}</p>
+
+          {productCollections.length > 0 && (
+            <div className="mt-4">
+              <p className="text-[11px] tracking-luxe text-muted-foreground">
+                Part of{" "}
+                {productCollections.map((c, i) => (
+                  <span key={c.id}>
+                    <Link
+                      to="/collection/$slug"
+                      params={{ slug: c.slug }}
+                      className="underline hover:text-foreground"
+                    >
+                      {c.name}
+                    </Link>
+                    {i < productCollections.length - 1
+                      ? i === productCollections.length - 2
+                        ? " and "
+                        : ", "
+                      : ""}
+                  </span>
+                ))}
+              </p>
+            </div>
+          )}
+
+          {variants.length > 0 && (
+            <div className="mt-8">
+              <p className="text-[11px] tracking-luxe text-muted-foreground">Size</p>
+              <div className="mt-3 flex flex-wrap gap-2">
+                {variants.map((v) => {
+                  const active = v.id === selectedVariantId;
+                  const oos = v.stock != null && v.stock <= 0;
+                  return (
+                    <button
+                      key={v.id}
+                      type="button"
+                      disabled={oos}
+                      onClick={() => setSelectedVariantId(active ? null : v.id)}
+                      className={`min-w-[3rem] border px-3 py-2 text-[11px] tracking-luxe transition-colors ${
+                        active
+                          ? "border-foreground bg-foreground text-background"
+                          : "border-border text-foreground hover:border-foreground"
+                      } ${oos ? "opacity-40 line-through" : ""}`}
+                    >
+                      {v.size}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          )}
 
           <div className="mt-8 flex items-center gap-4">
             <div className="inline-flex items-center border border-border">
@@ -99,13 +232,30 @@ function ProductPage() {
             </div>
             <button
               onClick={() => {
-                add({ id: product.id, slug: product.slug, name: product.name, price, image_url: product.image_url }, qty);
+                if (variants.length > 0 && !selectedVariant) {
+                  toast.error("Please select a size");
+                  return;
+                }
+                add(
+                  {
+                    id: product.id,
+                    slug: product.slug,
+                    name: product.name,
+                    price,
+                    image_url: product.image_url,
+                    variant_id: selectedVariant?.id ?? null,
+                    variant_size: selectedVariant?.size ?? null,
+                    sku: selectedVariant?.sku ?? product.sku ?? null,
+                  },
+                  qty,
+                );
                 toast.success("Added to bag");
               }}
               className="flex-1 bg-foreground py-3 text-[11px] tracking-luxe text-background hover:opacity-90"
             >
               Add to bag
             </button>
+
           </div>
 
           <ul className="mt-10 space-y-3 border-t border-border pt-6 text-sm text-muted-foreground">
@@ -114,11 +264,28 @@ function ProductPage() {
             <li>• Arrives in our signature pistachio atelier box</li>
           </ul>
 
+          {/* Specifications */}
+          <div className="mt-10 border-t border-border pt-6">
+            <p className="text-[11px] tracking-luxe text-muted-foreground">Specifications</p>
+            <dl className="mt-4 divide-y divide-border">
+              {specs.map((s) => (
+                <div key={s.label} className="grid grid-cols-[120px_1fr] gap-4 py-3 text-sm">
+                  <dt className="tracking-luxe text-[11px] uppercase text-muted-foreground">{s.label}</dt>
+                  <dd className="text-foreground">{s.value}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+
           {/* Mobile thumbnail strip */}
           <div className="mt-8 flex gap-2 overflow-x-auto md:hidden">
             {gallerySrcs.map((src, i) => (
               <button key={i} onClick={() => setActiveIdx(i)} className={`h-16 w-16 shrink-0 overflow-hidden border ${i === activeIdx ? "border-foreground" : "border-border opacity-70"}`}>
-                <img src={src} alt="" className="h-full w-full object-cover" />
+                {src.type === "video" ? (
+                  <video src={src.url} muted playsInline preload="metadata" className="h-full w-full object-cover" />
+                ) : (
+                  <img src={src.url} alt="" className="h-full w-full object-cover" />
+                )}
               </button>
             ))}
           </div>

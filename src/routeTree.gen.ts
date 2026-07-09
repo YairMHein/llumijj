@@ -17,14 +17,20 @@ import { Route as SaleRouteImport } from './routes/sale'
 import { Route as RingSizeGuideRouteImport } from './routes/ring-size-guide'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as PrivacyRouteImport } from './routes/privacy'
+import { Route as NewArrivalsRouteImport } from './routes/new-arrivals'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as LifetimeCareRouteImport } from './routes/lifetime-care'
 import { Route as ForgotPasswordRouteImport } from './routes/forgot-password'
 import { Route as ContactRouteImport } from './routes/contact'
+import { Route as CollectionsRouteImport } from './routes/collections'
 import { Route as CheckoutRouteImport } from './routes/checkout'
+import { Route as CatalogRouteImport } from './routes/catalog'
 import { Route as CartRouteImport } from './routes/cart'
+import { Route as BestSellersRouteImport } from './routes/best-sellers'
+import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ProductSlugRouteImport } from './routes/product.$slug'
+import { Route as CollectionSlugRouteImport } from './routes/collection.$slug'
 
 const WhyLlumiRoute = WhyLlumiRouteImport.update({
   id: '/why-llumi',
@@ -66,6 +72,11 @@ const PrivacyRoute = PrivacyRouteImport.update({
   path: '/privacy',
   getParentRoute: () => rootRouteImport,
 } as any)
+const NewArrivalsRoute = NewArrivalsRouteImport.update({
+  id: '/new-arrivals',
+  path: '/new-arrivals',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
   path: '/login',
@@ -86,14 +97,34 @@ const ContactRoute = ContactRouteImport.update({
   path: '/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CollectionsRoute = CollectionsRouteImport.update({
+  id: '/collections',
+  path: '/collections',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CheckoutRoute = CheckoutRouteImport.update({
   id: '/checkout',
   path: '/checkout',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CatalogRoute = CatalogRouteImport.update({
+  id: '/catalog',
+  path: '/catalog',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CartRoute = CartRouteImport.update({
   id: '/cart',
   path: '/cart',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BestSellersRoute = BestSellersRouteImport.update({
+  id: '/best-sellers',
+  path: '/best-sellers',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -106,15 +137,25 @@ const ProductSlugRoute = ProductSlugRouteImport.update({
   path: '/product/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CollectionSlugRoute = CollectionSlugRouteImport.update({
+  id: '/collection/$slug',
+  path: '/collection/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
+  '/best-sellers': typeof BestSellersRoute
   '/cart': typeof CartRoute
+  '/catalog': typeof CatalogRoute
   '/checkout': typeof CheckoutRoute
+  '/collections': typeof CollectionsRoute
   '/contact': typeof ContactRoute
   '/forgot-password': typeof ForgotPasswordRoute
   '/lifetime-care': typeof LifetimeCareRoute
   '/login': typeof LoginRoute
+  '/new-arrivals': typeof NewArrivalsRoute
   '/privacy': typeof PrivacyRoute
   '/reset-password': typeof ResetPasswordRoute
   '/ring-size-guide': typeof RingSizeGuideRoute
@@ -123,16 +164,22 @@ export interface FileRoutesByFullPath {
   '/shop': typeof ShopRoute
   '/trade-in': typeof TradeInRoute
   '/why-llumi': typeof WhyLlumiRoute
+  '/collection/$slug': typeof CollectionSlugRoute
   '/product/$slug': typeof ProductSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
+  '/best-sellers': typeof BestSellersRoute
   '/cart': typeof CartRoute
+  '/catalog': typeof CatalogRoute
   '/checkout': typeof CheckoutRoute
+  '/collections': typeof CollectionsRoute
   '/contact': typeof ContactRoute
   '/forgot-password': typeof ForgotPasswordRoute
   '/lifetime-care': typeof LifetimeCareRoute
   '/login': typeof LoginRoute
+  '/new-arrivals': typeof NewArrivalsRoute
   '/privacy': typeof PrivacyRoute
   '/reset-password': typeof ResetPasswordRoute
   '/ring-size-guide': typeof RingSizeGuideRoute
@@ -141,17 +188,23 @@ export interface FileRoutesByTo {
   '/shop': typeof ShopRoute
   '/trade-in': typeof TradeInRoute
   '/why-llumi': typeof WhyLlumiRoute
+  '/collection/$slug': typeof CollectionSlugRoute
   '/product/$slug': typeof ProductSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
+  '/best-sellers': typeof BestSellersRoute
   '/cart': typeof CartRoute
+  '/catalog': typeof CatalogRoute
   '/checkout': typeof CheckoutRoute
+  '/collections': typeof CollectionsRoute
   '/contact': typeof ContactRoute
   '/forgot-password': typeof ForgotPasswordRoute
   '/lifetime-care': typeof LifetimeCareRoute
   '/login': typeof LoginRoute
+  '/new-arrivals': typeof NewArrivalsRoute
   '/privacy': typeof PrivacyRoute
   '/reset-password': typeof ResetPasswordRoute
   '/ring-size-guide': typeof RingSizeGuideRoute
@@ -160,18 +213,24 @@ export interface FileRoutesById {
   '/shop': typeof ShopRoute
   '/trade-in': typeof TradeInRoute
   '/why-llumi': typeof WhyLlumiRoute
+  '/collection/$slug': typeof CollectionSlugRoute
   '/product/$slug': typeof ProductSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/admin'
+    | '/best-sellers'
     | '/cart'
+    | '/catalog'
     | '/checkout'
+    | '/collections'
     | '/contact'
     | '/forgot-password'
     | '/lifetime-care'
     | '/login'
+    | '/new-arrivals'
     | '/privacy'
     | '/reset-password'
     | '/ring-size-guide'
@@ -180,16 +239,22 @@ export interface FileRouteTypes {
     | '/shop'
     | '/trade-in'
     | '/why-llumi'
+    | '/collection/$slug'
     | '/product/$slug'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/admin'
+    | '/best-sellers'
     | '/cart'
+    | '/catalog'
     | '/checkout'
+    | '/collections'
     | '/contact'
     | '/forgot-password'
     | '/lifetime-care'
     | '/login'
+    | '/new-arrivals'
     | '/privacy'
     | '/reset-password'
     | '/ring-size-guide'
@@ -198,16 +263,22 @@ export interface FileRouteTypes {
     | '/shop'
     | '/trade-in'
     | '/why-llumi'
+    | '/collection/$slug'
     | '/product/$slug'
   id:
     | '__root__'
     | '/'
+    | '/admin'
+    | '/best-sellers'
     | '/cart'
+    | '/catalog'
     | '/checkout'
+    | '/collections'
     | '/contact'
     | '/forgot-password'
     | '/lifetime-care'
     | '/login'
+    | '/new-arrivals'
     | '/privacy'
     | '/reset-password'
     | '/ring-size-guide'
@@ -216,17 +287,23 @@ export interface FileRouteTypes {
     | '/shop'
     | '/trade-in'
     | '/why-llumi'
+    | '/collection/$slug'
     | '/product/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AdminRoute: typeof AdminRoute
+  BestSellersRoute: typeof BestSellersRoute
   CartRoute: typeof CartRoute
+  CatalogRoute: typeof CatalogRoute
   CheckoutRoute: typeof CheckoutRoute
+  CollectionsRoute: typeof CollectionsRoute
   ContactRoute: typeof ContactRoute
   ForgotPasswordRoute: typeof ForgotPasswordRoute
   LifetimeCareRoute: typeof LifetimeCareRoute
   LoginRoute: typeof LoginRoute
+  NewArrivalsRoute: typeof NewArrivalsRoute
   PrivacyRoute: typeof PrivacyRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
   RingSizeGuideRoute: typeof RingSizeGuideRoute
@@ -235,6 +312,7 @@ export interface RootRouteChildren {
   ShopRoute: typeof ShopRoute
   TradeInRoute: typeof TradeInRoute
   WhyLlumiRoute: typeof WhyLlumiRoute
+  CollectionSlugRoute: typeof CollectionSlugRoute
   ProductSlugRoute: typeof ProductSlugRoute
 }
 
@@ -296,6 +374,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PrivacyRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/new-arrivals': {
+      id: '/new-arrivals'
+      path: '/new-arrivals'
+      fullPath: '/new-arrivals'
+      preLoaderRoute: typeof NewArrivalsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/login': {
       id: '/login'
       path: '/login'
@@ -324,6 +409,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ContactRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/collections': {
+      id: '/collections'
+      path: '/collections'
+      fullPath: '/collections'
+      preLoaderRoute: typeof CollectionsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/checkout': {
       id: '/checkout'
       path: '/checkout'
@@ -331,11 +423,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CheckoutRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/catalog': {
+      id: '/catalog'
+      path: '/catalog'
+      fullPath: '/catalog'
+      preLoaderRoute: typeof CatalogRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/cart': {
       id: '/cart'
       path: '/cart'
       fullPath: '/cart'
       preLoaderRoute: typeof CartRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/best-sellers': {
+      id: '/best-sellers'
+      path: '/best-sellers'
+      fullPath: '/best-sellers'
+      preLoaderRoute: typeof BestSellersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -352,17 +465,29 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProductSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/collection/$slug': {
+      id: '/collection/$slug'
+      path: '/collection/$slug'
+      fullPath: '/collection/$slug'
+      preLoaderRoute: typeof CollectionSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AdminRoute: AdminRoute,
+  BestSellersRoute: BestSellersRoute,
   CartRoute: CartRoute,
+  CatalogRoute: CatalogRoute,
   CheckoutRoute: CheckoutRoute,
+  CollectionsRoute: CollectionsRoute,
   ContactRoute: ContactRoute,
   ForgotPasswordRoute: ForgotPasswordRoute,
   LifetimeCareRoute: LifetimeCareRoute,
   LoginRoute: LoginRoute,
+  NewArrivalsRoute: NewArrivalsRoute,
   PrivacyRoute: PrivacyRoute,
   ResetPasswordRoute: ResetPasswordRoute,
   RingSizeGuideRoute: RingSizeGuideRoute,
@@ -371,6 +496,7 @@ const rootRouteChildren: RootRouteChildren = {
   ShopRoute: ShopRoute,
   TradeInRoute: TradeInRoute,
   WhyLlumiRoute: WhyLlumiRoute,
+  CollectionSlugRoute: CollectionSlugRoute,
   ProductSlugRoute: ProductSlugRoute,
 }
 export const routeTree = rootRouteImport

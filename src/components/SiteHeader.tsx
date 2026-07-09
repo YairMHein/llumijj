@@ -4,19 +4,31 @@ import { useState } from "react";
 import { useCart } from "@/lib/cart";
 import { CartDrawer } from "./CartDrawer";
 import { SearchPanel } from "./SearchPanel";
-import logo from "@/assets/llumi-mark.png";
+import logoAsset from "@/assets/llumi-logo-primary.png.asset.json";
+const logo = logoAsset.url;
 
 const navLinks = [
   { to: "/sale", label: "Sale" },
-  { to: "/shop", label: "Shop" },
+  { to: "/collections", label: "Collections" },
+  { to: "/new-arrivals", label: "New Arrivals" },
+  { to: "/best-sellers", label: "Best Sellers" },
   { to: "/why-llumi", label: "Why LLUMI" },
-  { to: "/shipping", label: "Shipping" },
+] as const;
+
+const shopLinks = [
+  { to: "/shop", label: "ALL JEWELRIES", search: undefined as string | undefined },
+  { to: "/shop", label: "Earrings", search: "earrings" },
+  { to: "/shop", label: "Necklaces", search: "necklaces" },
+  { to: "/shop", label: "Rings", search: "rings" },
+  { to: "/shop", label: "Bracelets", search: "bracelets" },
 ] as const;
 
 const supportLinks = [
+  { to: "/shipping", label: "Shipping & FAQ" },
   { to: "/ring-size-guide", label: "Ring size guide" },
   { to: "/lifetime-care", label: "Lifetime care" },
   { to: "/trade-in", label: "Trade-in program" },
+  { to: "/contact", label: "Contact us" },
 ] as const;
 
 const socials = [
@@ -86,17 +98,38 @@ export function SiteHeader() {
 
       <nav className="hidden border-t border-border md:block">
         <ul className="mx-auto flex max-w-7xl items-center justify-center gap-10 px-8 py-3 text-[12px] tracking-luxe text-foreground/75">
-          {navLinks.map((l) => (
-            <li key={l.to}>
-              <Link to={l.to} className="transition-colors hover:text-foreground" activeProps={{ className: "text-foreground" }}>
-                {l.label}
-              </Link>
-            </li>
-          ))}
+          <li>
+            <Link to="/sale" className="transition-colors hover:text-foreground" activeProps={{ className: "text-foreground" }}>Sale</Link>
+          </li>
+          <li>
+            <Link to="/collections" className="transition-colors hover:text-foreground" activeProps={{ className: "text-foreground" }}>Collections</Link>
+          </li>
+          <li>
+            <Link to="/new-arrivals" className="transition-colors hover:text-foreground" activeProps={{ className: "text-foreground" }}>New Arrivals</Link>
+          </li>
+          <li>
+            <Link to="/best-sellers" className="transition-colors hover:text-foreground" activeProps={{ className: "text-foreground" }}>Best Sellers</Link>
+          </li>
           <li className="group relative">
-            <button className="uppercase transition-colors hover:text-foreground">
-              Support
-            </button>
+            <button type="button" className="uppercase transition-colors hover:text-foreground">Shop</button>
+            <div className="invisible absolute left-1/2 top-full z-50 mt-2 w-56 -translate-x-1/2 border border-border bg-background p-2 opacity-0 shadow-lg transition-all group-hover:visible group-hover:opacity-100">
+              {shopLinks.map((s) => (
+                <Link
+                  key={s.label}
+                  to="/shop"
+                  search={s.search ? { category: s.search } : {}}
+                  className="block px-3 py-2 text-[11px] tracking-luxe text-foreground/75 hover:bg-muted hover:text-foreground"
+                >
+                  {s.label}
+                </Link>
+              ))}
+            </div>
+          </li>
+          <li>
+            <Link to="/why-llumi" className="transition-colors hover:text-foreground" activeProps={{ className: "text-foreground" }}>Why LLUMI</Link>
+          </li>
+          <li className="group relative">
+            <button type="button" className="uppercase transition-colors hover:text-foreground">Support</button>
             <div className="invisible absolute left-1/2 top-full z-50 mt-2 w-56 -translate-x-1/2 border border-border bg-background p-2 opacity-0 shadow-lg transition-all group-hover:visible group-hover:opacity-100">
               {supportLinks.map((s) => (
                 <Link key={s.to} to={s.to} className="block px-3 py-2 text-[11px] tracking-luxe text-foreground/75 hover:bg-muted hover:text-foreground">
@@ -115,6 +148,19 @@ export function SiteHeader() {
               <li key={l.to}>
                 <Link to={l.to} onClick={() => setOpen(false)} className="block py-2.5 tracking-luxe text-[12px] text-foreground/80">
                   {l.label}
+                </Link>
+              </li>
+            ))}
+            <li className="border-t border-border pt-2 mt-2 text-[10px] tracking-luxe text-muted-foreground">Shop</li>
+            {shopLinks.map((s) => (
+              <li key={s.label}>
+                <Link
+                  to="/shop"
+                  search={s.search ? { category: s.search } : {}}
+                  onClick={() => setOpen(false)}
+                  className="block py-2 pl-3 tracking-luxe text-[12px] text-foreground/80"
+                >
+                  {s.label}
                 </Link>
               </li>
             ))}

@@ -60,6 +60,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/1eec02d5-bca4-4101-b79c-970840c63be3" },
     ],
     links: [
+      { rel: "icon", type: "image/png", href: "/__l5e/assets-v1/f7fe3f0a-39d9-40c2-95bf-8e39d6dab4f2/llumi-logo-primary.png" },
       { rel: "stylesheet", href: appCss },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },

@@ -60,17 +60,22 @@ function CheckoutPage() {
                 <h2 className="text-[11px] tracking-luxe text-muted-foreground">In your bag</h2>
                 <ul className="mt-3 divide-y divide-border border-y border-border">
                   {items.map((i) => (
-                    <li key={i.id} className="py-3">
+                    <li key={`${i.id}:${i.variant_id ?? ""}`} className="py-3">
                       <Link to="/product/$slug" params={{ slug: i.slug }} className="flex items-center gap-4 hover:opacity-80">
                         <img src={resolveProductImage(i.image_url)} alt="" className="h-16 w-14 object-cover" />
                         <div className="flex-1">
                           <p className="font-serif text-base">{i.name}</p>
-                          <p className="text-xs text-muted-foreground">Qty {i.quantity}</p>
+                          <p className="text-xs text-muted-foreground">
+                            Qty {i.quantity}
+                            {i.variant_size ? ` · Size ${i.variant_size}` : ""}
+                            {i.sku ? ` · SKU ${i.sku}` : ""}
+                          </p>
                         </div>
                         <span className="text-sm">{formatMoney(i.price * i.quantity)}</span>
                       </Link>
                     </li>
                   ))}
+
                 </ul>
               </div>
             </div>

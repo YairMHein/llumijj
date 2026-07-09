@@ -2,9 +2,9 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { Layout } from "@/components/Layout";
 import { ProductCard } from "@/components/ProductCard";
-import { fetchProducts } from "@/lib/products";
-import packaging from "@/assets/packaging.jpg";
-import packagingOpen from "@/assets/packaging-open.jpg";
+import { fetchProducts, primaryPhotoUrl } from "@/lib/products";
+import packagingMockup from "@/assets/packaging-mockup.png.asset.json";
+import packagingBags from "@/assets/packaging-bags.png.asset.json";
 import lifetimeCare from "@/assets/lifetime-care.jpg";
 import tradeIn from "@/assets/trade-in.jpg";
 import heroVideo from "@/assets/hero-video.mp4.asset.json";
@@ -115,22 +115,22 @@ function HomePage() {
               <li>· Soft velvet pouch & care card included</li>
             </ul>
           </div>
-          <div className="grid grid-cols-2 gap-4">
-            <img src={packaging} alt="LLUMI pistachio gift box exterior" className="aspect-[4/5] w-full object-cover" loading="lazy" />
-            <img src={packagingOpen} alt="Open LLUMI box with velvet pouch and silver moon necklace" className="aspect-[4/5] w-full object-cover" loading="lazy" />
+          <div className="grid gap-4">
+            <img src={packagingMockup.url} alt="LLUMI packaging box designs" className="w-full object-cover" loading="lazy" />
+            <img src={packagingBags.url} alt="LLUMI shopping bags and drawer boxes" className="w-full object-cover" loading="lazy" />
           </div>
         </div>
       </section>
 
       {/* Gallery — worn on the wall */}
-      <section style={{ backgroundColor: "#fd7c5e" }} className="relative overflow-hidden">
+      <section style={{ backgroundColor: "#930f31", color: "#FFF9ee" }} className="relative overflow-hidden">
         <div className="mx-auto max-w-7xl px-5 py-20 md:px-8">
           <div className="flex items-end justify-between">
             <div>
-              <p className="text-[11px] tracking-luxe text-background/70">Gallery</p>
-              <h2 className="mt-3 font-serif text-4xl text-background md:text-5xl">Worn in the wild.</h2>
+              <p className="text-[11px] tracking-luxe" style={{ color: "#FFF9ee", opacity: 0.8 }}>Gallery</p>
+              <h2 className="mt-3 font-serif text-4xl md:text-5xl" style={{ color: "#FFF9ee" }}>Jewellery is more than decoration.</h2>
             </div>
-            <Link to="/shop" className="hidden text-[11px] tracking-luxe text-background/85 hover:text-background md:inline">
+            <Link to="/shop" className="hidden text-[11px] tracking-luxe md:inline" style={{ color: "#FFF9ee" }}>
               Shop the looks →
             </Link>
           </div>
@@ -231,9 +231,10 @@ function CategoryCover({ category }: { category: "earrings" | "necklaces" | "rin
   });
   const first = data?.[0];
   if (!first) return <div className="h-full w-full bg-muted" />;
+  const src = primaryPhotoUrl(first) ?? resolveProductImage(first.image_url);
   return (
     <img
-      src={resolveProductImage(first.image_url)}
+      src={src}
       alt={first.name}
       loading="lazy"
       className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"

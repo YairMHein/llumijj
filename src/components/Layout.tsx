@@ -4,6 +4,7 @@ import { SiteFooter } from "./SiteFooter";
 import { AnnouncementBar } from "./AnnouncementBar";
 import { Preloader } from "./Preloader";
 import { QuickContact } from "./QuickContact";
+import { CookieConsent } from "./CookieConsent";
 
 export function Layout({ children }: { children: ReactNode }) {
   return (
@@ -14,6 +15,7 @@ export function Layout({ children }: { children: ReactNode }) {
       <main className="flex-1">{children}</main>
       <SiteFooter />
       <QuickContact />
+      <CookieConsent />
     </div>
   );
 }

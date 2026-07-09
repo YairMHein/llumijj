@@ -35,10 +35,9 @@ const features = ["Sale", "New", "Best Seller"] as const;
 const metals = ["Silver", "Gold", "Blue"] as const;
 type Sort = "featured" | "best-selling" | "price-asc" | "date-desc";
 
-// Filter prices are MMK; internal product price multiplied by 4500 for display.
-const MMK_RATE = 4500;
+// Prices are stored in MMK.
 const MIN_MMK = 0;
-const MAX_MMK = 500000;
+const MAX_MMK = 5000000;
 const PAGE = 8;
 const fmtMMK = (n: number) => `${new Intl.NumberFormat("en-US").format(n)} MMK`;
 
@@ -75,7 +74,7 @@ function ShopPage() {
       out = out.filter((p) => p.metal && selectedMetals.includes(p.metal));
     }
     out = out.filter((p) => {
-      const mmk = Number(p.sale_price ?? p.price) * MMK_RATE;
+      const mmk = Number(p.sale_price ?? p.price);
       return mmk >= minPrice && mmk <= maxPrice;
     });
     const cmpPrice = (a: Product, b: Product) => Number(a.sale_price ?? a.price) - Number(b.sale_price ?? b.price);
