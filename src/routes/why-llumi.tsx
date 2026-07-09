@@ -1,8 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { Layout } from "@/components/Layout";
-import photo1 from "@/assets/why-llumi-1.png.asset.json";
-import photo2 from "@/assets/why-llumi-2.png.asset.json";
+import photo1 from "@/assets/why-llumi-1.png";
+import photo2 from "@/assets/why-llumi-2.png";
 
 
 export const Route = createFileRoute("/why-llumi")({
@@ -109,7 +109,7 @@ function WhyLlumi() {
           </div>
           <div className="overflow-hidden">
             <img
-              src={photo1.url}
+              src={photo1}
               alt="LLUMI floral statement earrings in gold and silver"
               className="aspect-[4/5] w-full max-w-sm object-cover md:ml-auto"
               loading="lazy"
@@ -123,7 +123,7 @@ function WhyLlumi() {
         <div className="grid items-center gap-8 md:grid-cols-2 md:gap-12">
           <div className="order-2 overflow-hidden md:order-1">
             <img
-              src={photo2.url}
+              src={photo2}
               alt="LLUMI ginkgo silver earring worn by model"
               className="aspect-[4/5] w-full max-w-sm object-cover"
               loading="lazy"

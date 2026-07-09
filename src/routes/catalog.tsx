@@ -2,12 +2,12 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import HTMLFlipBook from "react-pageflip";
 import { X } from "lucide-react";
-import p1 from "@/assets/catalog-page-1.jpg.asset.json";
-import p2 from "@/assets/catalog-page-2.jpg.asset.json";
-import p3 from "@/assets/catalog-page-3.jpg.asset.json";
-import p4 from "@/assets/catalog-page-4.jpg.asset.json";
-import p5 from "@/assets/catalog-page-5.jpg.asset.json";
-import p6 from "@/assets/catalog-page-6.jpg.asset.json";
+import p1 from "@/assets/catalog-page-1.jpg";
+import p2 from "@/assets/catalog-page-2.jpg";
+import p3 from "@/assets/catalog-page-3.jpg";
+import p4 from "@/assets/catalog-page-4.jpg";
+import p5 from "@/assets/catalog-page-5.jpg";
+import p6 from "@/assets/catalog-page-6.jpg";
 
 export const Route = createFileRoute("/catalog")({
   head: () => ({
@@ -21,7 +21,7 @@ export const Route = createFileRoute("/catalog")({
   component: CatalogPage,
 });
 
-const pages = [p1.url, p2.url, p3.url, p4.url, p5.url, p6.url];
+const pages = [p1, p2, p3, p4, p5, p6];
 
 function CatalogPage() {
   const bookRef = useRef<any>(null);

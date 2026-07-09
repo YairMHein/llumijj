@@ -3,11 +3,11 @@ import { useQuery } from "@tanstack/react-query";
 import { Layout } from "@/components/Layout";
 import { ProductCard } from "@/components/ProductCard";
 import { fetchProducts, primaryPhotoUrl } from "@/lib/products";
-import packagingMockup from "@/assets/packaging-mockup.png.asset.json";
-import packagingBags from "@/assets/packaging-bags.png.asset.json";
+import packagingMockup from "@/assets/packaging-mockup.png";
+import packagingBags from "@/assets/packaging-bags.png";
 import lifetimeCare from "@/assets/lifetime-care.jpg";
 import tradeIn from "@/assets/trade-in.jpg";
-import heroVideo from "@/assets/hero-video.mp4.asset.json";
+import heroVideo from "@/assets/hero-video.mp4";
 import heroPoster from "@/assets/hero-model.jpg";
 import gallery1 from "@/assets/gallery-1.jpg";
 import gallery2 from "@/assets/gallery-2.jpg";
@@ -43,7 +43,7 @@ function HomePage() {
       {/* Hero video */}
       <section className="relative h-[78vh] min-h-[520px] w-full overflow-hidden bg-foreground md:h-[88vh]">
         <video
-          src={heroVideo.url}
+          src={heroVideo}
           poster={heroPoster}
           autoPlay
           muted
@@ -116,8 +116,8 @@ function HomePage() {
             </ul>
           </div>
           <div className="grid gap-4">
-            <img src={packagingMockup.url} alt="LLUMI packaging box designs" className="w-full object-cover" loading="lazy" />
-            <img src={packagingBags.url} alt="LLUMI shopping bags and drawer boxes" className="w-full object-cover" loading="lazy" />
+            <img src={packagingMockup} alt="LLUMI packaging box designs" className="w-full object-cover" loading="lazy" />
+            <img src={packagingBags} alt="LLUMI shopping bags and drawer boxes" className="w-full object-cover" loading="lazy" />
           </div>
         </div>
       </section>
@@ -148,7 +148,7 @@ function HomePage() {
                 <span aria-hidden className="absolute left-1/2 -top-7 block h-2 w-2 -translate-x-1/2 rounded-full bg-background" />
                 <div className="overflow-hidden bg-background/10 shadow-2xl ring-1 ring-background/30">
                   {i === 0 ? (
-                    <video src={heroVideo.url} poster={g.src} autoPlay muted loop playsInline className="aspect-[4/5] w-full object-cover" />
+                    <video src={heroVideo} poster={g.src} autoPlay muted loop playsInline className="aspect-[4/5] w-full object-cover" />
                   ) : (
                     <img src={g.src} alt={g.label} loading="lazy" width={1024} height={1280} className="aspect-[4/5] w-full object-cover" />
                   )}

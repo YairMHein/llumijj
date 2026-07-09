@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { Layout } from "@/components/Layout";
 import { LangToggle } from "./why-llumi";
-import shippingHero from "@/assets/shipping-hero.png.asset.json";
+import shippingHero from "@/assets/shipping-hero.png";
 
 export const Route = createFileRoute("/shipping")({
   component: ShippingPage,
@@ -113,7 +113,7 @@ function ShippingPage() {
 
         <div className="mt-8 overflow-hidden">
           <img
-            src={shippingHero.url}
+            src={shippingHero}
             alt="LLUMI silver earrings — Wear Your Story"
             className="aspect-[4/5] w-full max-w-md object-cover md:mx-auto"
             loading="lazy"
