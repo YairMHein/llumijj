@@ -4,8 +4,7 @@ import { useState } from "react";
 import { useCart } from "@/lib/cart";
 import { CartDrawer } from "./CartDrawer";
 import { SearchPanel } from "./SearchPanel";
-import logoAsset from "@/assets/llumi-logo-primary.png.asset.json";
-const logo = logoAsset.url;
+import logo from "@/assets/llumi-logo-primary.png";
 
 const navLinks = [
   { to: "/sale", label: "Sale" },
