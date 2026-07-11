@@ -10,7 +10,7 @@ const navLinks = [
   { to: "/sale", label: "Sale" },
   { to: "/collections", label: "Collections" },
   { to: "/new-arrivals", label: "New Arrivals" },
-  { to: "/best-sellers", label: "Best Sellers" },
+  //{ to: "/best-sellers", label: "Best Sellers" },
   { to: "/why-llumi", label: "Why LLUMI" },
 ] as const;
 
@@ -31,9 +31,9 @@ const supportLinks = [
 ] as const;
 
 const socials = [
-  { href: "https://facebook.com/llumi", label: "Facebook", Icon: Facebook },
+  { href: "https://facebook.com/llumijewellery", label: "Facebook", Icon: Facebook },
   { href: "https://instagram.com/llumi", label: "Instagram", Icon: Instagram },
-  { href: "https://tiktok.com/@llumi", label: "TikTok", Icon: TikTokIcon },
+  { href: "https://tiktok.com/@llumi.silver", label: "TikTok", Icon: TikTokIcon },
 ];
 
 function TikTokIcon(props: React.SVGProps<SVGSVGElement>) {
@@ -72,16 +72,16 @@ export function SiteHeader() {
 
         <Link to="/" className="mx-auto flex items-center gap-2">
           <img src={logo} alt="" className="h-7 w-7" />
-          <span className="font-serif text-2xl tracking-wide">LLUMI</span>
+          <span className="font-serif text-2xl tracking-widest">LLUMI</span>
         </Link>
 
         <div className="ml-auto flex flex-1 items-center justify-end gap-1">
           <button onClick={() => setSearchOpen((s) => !s)} aria-label="Search" className="inline-flex h-9 w-9 items-center justify-center text-foreground/80 hover:text-foreground">
             <Search className="h-[18px] w-[18px]" />
           </button>
-          <a href="/login" aria-label="Account" className="inline-flex h-9 w-9 items-center justify-center text-foreground/80 hover:text-foreground">
+          {/*<a href="/login" aria-label="Account" className="inline-flex h-9 w-9 items-center justify-center text-foreground/80 hover:text-foreground">
             <User className="h-[18px] w-[18px]" />
-          </a>
+          </a>*/}
           <button onClick={() => setCartOpen(true)} aria-label="Cart" className="relative inline-flex h-9 w-9 items-center justify-center text-foreground/80 hover:text-foreground">
             <ShoppingBag className="h-[18px] w-[18px]" />
             {count > 0 && (
@@ -106,9 +106,9 @@ export function SiteHeader() {
           <li>
             <Link to="/new-arrivals" className="transition-colors hover:text-foreground" activeProps={{ className: "text-foreground" }}>New Arrivals</Link>
           </li>
-          <li>
+          {/* <li>
             <Link to="/best-sellers" className="transition-colors hover:text-foreground" activeProps={{ className: "text-foreground" }}>Best Sellers</Link>
-          </li>
+          </li> */}
           <li className="group relative">
             <button type="button" className="uppercase transition-colors hover:text-foreground">Shop</button>
             <div className="invisible absolute left-1/2 top-full z-50 mt-2 w-56 -translate-x-1/2 border border-border bg-background p-2 opacity-0 shadow-lg transition-all group-hover:visible group-hover:opacity-100">

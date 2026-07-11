@@ -90,7 +90,7 @@ function CheckoutPage() {
                   </div>
                 )}
                 <div className="mt-2 flex justify-between border-t border-border pt-2 text-sale">
-                  <span>Deposit due today (30%)</span><span>{formatMoney(deposit)}</span>
+                  <span>Deposit due today (50%)</span><span>{formatMoney(deposit)}</span>
                 </div>
               </div>
               <button

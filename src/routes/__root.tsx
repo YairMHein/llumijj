@@ -9,7 +9,7 @@ import {
 import { Toaster } from "sonner";
 
 import appCss from "../styles.css?url";
-import faviconUrl from "@/assets/llumi-logo-primary.png";
+import faviconUrl from "@/assets/llumi_cropped_circle_image.png";
 import { CartProvider } from "@/lib/cart";
 import { AuthProvider } from "@/lib/auth";
 

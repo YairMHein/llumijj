@@ -49,14 +49,7 @@ function ProductPage() {
       type: (p.media_type === "video" ? "video" : "image") as "image" | "video",
     }));
     if (dbPhotos.length > 0) return dbPhotos;
-    return [
-      { url: resolveProductImage(product.image_url), type: "image" as const },
-      { url: resolveWornImage(product.category), type: "image" as const },
-      { url: gallery, type: "image" as const },
-      { url: lifestyle, type: "image" as const },
-      { url: packaging, type: "image" as const },
-      { url: packagingOpen, type: "image" as const },
-    ];
+    return [];
   }, [product]);
 
   const suggested = useMemo(() => {
@@ -67,32 +60,16 @@ function ProductPage() {
   }, [related, product]);
 
   const specs = useMemo(() => {
-    if (!product) return [] as Array<{ label: string; value: string }>;
-    const material = product.material || (product.metal ? `${product.metal} 925 Silver` : "925 Sterling Silver");
-    const finishing = product.metal === "gold"
-      ? "18k Gold plated, hand-polished"
-      : product.metal === "blue"
-      ? "Rhodium plated, sapphire-tone finish"
-      : "Hand-polished high shine";
-    const sizeByCat: Record<string, string> = {
-      rings: "US 5 – 9 (resizing available)",
-      necklaces: "Chain 40cm + 5cm extender",
-      bracelets: "16cm – 19cm adjustable",
-      earrings: "Drop 12mm · Post 10k gold",
-    };
-    const weightByCat: Record<string, string> = {
-      rings: "2.4 g",
-      necklaces: "4.8 g",
-      bracelets: "5.6 g",
-      earrings: "1.8 g (pair)",
-    };
-    return [
-      { label: "Material", value: material },
-      { label: "Finishing", value: finishing },
-      { label: "Size", value: sizeByCat[product.category] ?? "One size" },
-      { label: "Weight", value: weightByCat[product.category] ?? "—" },
-    ];
-  }, [product]);
+  if (!product) return [] as Array<{ label: string; value: string }>;
+
+  return [
+    { label: "Metal", value: product.metal },
+    { label: "Plating", value: product.plating },
+    { label: "Size", value: product.size },
+    { label: "Weight", value: product.weight },
+    { label: "Stone", value: product.stone },
+  ].filter((s): s is { label: string; value: string } => !!s.value);
+}, [product]);
 
   if (isLoading) return <Layout><div className="mx-auto max-w-7xl px-8 py-24 text-sm text-muted-foreground">Loading…</div></Layout>;
   if (!product) return <Layout><div className="mx-auto max-w-7xl px-8 py-24"><p>Not found.</p><Link to="/shop" className="underline">Back to shop</Link></div></Layout>;
@@ -258,12 +235,6 @@ function ProductPage() {
 
           </div>
 
-          <ul className="mt-10 space-y-3 border-t border-border pt-6 text-sm text-muted-foreground">
-            <li>• Preorder — pay only a 30% deposit at checkout</li>
-            <li>• Free pickup at our atelier, or home delivery available</li>
-            <li>• Arrives in our signature pistachio atelier box</li>
-          </ul>
-
           {/* Specifications */}
           <div className="mt-10 border-t border-border pt-6">
             <p className="text-[11px] tracking-luxe text-muted-foreground">Specifications</p>
@@ -276,7 +247,12 @@ function ProductPage() {
               ))}
             </dl>
           </div>
-
+          
+          <ul className="mt-10 space-y-3 border-t border-border pt-6 text-sm text-muted-foreground">
+            <li>• Preorder — pay only a 50% deposit at checkout</li>
+            <li>• Free pickup at our atelier, or home delivery available</li>
+            <li>• Arrives in our signature LLUMI's atelier box</li>
+          </ul>
           {/* Mobile thumbnail strip */}
           <div className="mt-8 flex gap-2 overflow-x-auto md:hidden">
             {gallerySrcs.map((src, i) => (

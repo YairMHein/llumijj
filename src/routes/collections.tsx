@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { Layout } from "@/components/Layout";
 import { fetchCollections } from "@/lib/collections";
+import { getCollectionImageUrl } from "@/lib/utils";
 
 export const Route = createFileRoute("/collections")({
   component: CollectionsPage,
@@ -48,7 +49,7 @@ function CollectionsPage() {
                 <div className="relative aspect-[4/5] overflow-hidden bg-muted">
                   {c.image_url ? (
                     <img
-                      src={c.image_url}
+                      src={getCollectionImageUrl(c.image_url)}
                       alt={c.name}
                       className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                     />

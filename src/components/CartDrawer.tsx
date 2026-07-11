@@ -4,7 +4,7 @@ import { createPortal } from "react-dom";
 import { useQuery } from "@tanstack/react-query";
 import { X } from "lucide-react";
 import { useCart, formatMoney } from "@/lib/cart";
-import { fetchProducts } from "@/lib/products";
+import { fetchProducts, fetchProductsCart } from "@/lib/products";
 import { resolveProductImage } from "@/lib/product-images";
 
 export function CartDrawer({ open, onClose }: { open: boolean; onClose: () => void }) {
@@ -13,7 +13,7 @@ export function CartDrawer({ open, onClose }: { open: boolean; onClose: () => vo
   useEffect(() => setMounted(true), []);
   const { data: suggested = [] } = useQuery({
     queryKey: ["products", "featured"],
-    queryFn: () => fetchProducts({ featured: true }),
+    queryFn: () => fetchProductsCart({ featured: true }),
     enabled: open,
   });
 
@@ -51,7 +51,7 @@ export function CartDrawer({ open, onClose }: { open: boolean; onClose: () => vo
                 <li key={p.id} className="group">
                   <Link to="/product/$slug" params={{ slug: p.slug }} onClick={onClose} className="block">
                     <div className="aspect-[4/5] overflow-hidden bg-muted">
-                      <img src={resolveProductImage(p.image_url)} alt={p.name} className="h-full w-full object-cover transition-transform group-hover:scale-[1.03]" loading="lazy" />
+                      <img src={p.image_url} alt={p.name} className="h-full w-full object-cover transition-transform group-hover:scale-[1.03]" loading="lazy" />
                     </div>
                     <p className="mt-2 truncate font-serif text-sm">{p.name}</p>
                     <p className="text-xs text-muted-foreground">{formatMoney(Number(p.sale_price ?? p.price))}</p>
@@ -71,7 +71,7 @@ export function CartDrawer({ open, onClose }: { open: boolean; onClose: () => vo
             <ul className="flex-1 divide-y divide-border overflow-y-auto px-5">
               {items.map((i) => (
                 <li key={`${i.id}:${i.variant_id ?? ""}`} className="flex gap-4 py-5">
-                  <img src={resolveProductImage(i.image_url)} alt="" className="h-24 w-20 object-cover" />
+                  <img src={i.image_url} alt="" className="h-24 w-20 object-cover" />
                   <div className="flex flex-1 flex-col">
                     <div className="flex justify-between gap-3">
                       <div>
@@ -104,7 +104,7 @@ export function CartDrawer({ open, onClose }: { open: boolean; onClose: () => vo
                 <span>Subtotal</span><span>{formatMoney(subtotal)}</span>
               </div>
               <div className="mt-1 flex justify-between text-xs text-muted-foreground">
-                <span>Deposit due today (30%)</span><span>{formatMoney(subtotal * 0.3)}</span>
+                <span>Deposit due today (50%)</span><span>{formatMoney(subtotal * 0.5)}</span>
               </div>
               <Link to="/checkout" onClick={onClose} className="mt-4 block bg-foreground py-3 text-center text-[11px] tracking-luxe text-background">
                 Checkout (preorder)

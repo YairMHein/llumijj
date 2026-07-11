@@ -30,15 +30,27 @@ export type Product = {
   category: "earrings" | "necklaces" | "rings" | "bracelets";
   price: number;
   sale_price: number | null;
-  image_url: string;
-  material: string | null;
   metal: string | null;
   sku: string | null;
+  plating: string | null;
+  size: string | null;
+  weight: string | null;
+  stone: string | null;
   is_featured: boolean | null;
   is_new: boolean | null;
   is_best_seller: boolean | null;
   product_photos?: ProductPhoto[];
   product_variants?: ProductVariant[];
+};
+
+export type ProductCart = {
+  id: string;
+  slug: string;
+  name: string;
+  price: number;
+  sale_price: number | null;
+  sku: string | null;
+  image_url: string;
 };
 
 const SELECT =
@@ -55,6 +67,51 @@ export async function fetchProducts(opts: { category?: string; onSale?: boolean;
   const { data, error } = await q;
   if (error) throw error;
   return (data ?? []) as Product[];
+}
+
+export async function fetchProductsCart(filters?: {
+  category?: string;
+  featured?: boolean;
+}): Promise<ProductCart[]> {
+  let query = supabase
+    .from("products")
+    .select(`
+      id,
+      slug,
+      name,
+      price,
+      sale_price,
+      sku,
+      product_photos!left(image_url, is_primary, sort_order)
+    `)
+    .order("created_at", { ascending: false });
+
+  if (filters?.category) query = query.eq("category", filters.category);
+  if (filters?.featured) query = query.eq("is_featured", true);
+
+  const { data, error } = await query;
+  if (error) throw error;
+
+  return (data ?? []).map((p) => {
+    const photos = (p.product_photos ?? []) as {
+      image_url: string;
+      is_primary: boolean;
+      sort_order: number;
+    }[];
+    const primary =
+      photos.find((ph) => ph.is_primary) ??
+      photos.sort((a, b) => a.sort_order - b.sort_order)[0];
+
+    return {
+      id: p.id,
+      slug: p.slug,
+      name: p.name,
+      price: Number(p.price),
+      sale_price: p.sale_price != null ? Number(p.sale_price) : null,
+      sku: p.sku ?? null,
+      image_url: primary?.image_url ?? "",
+    };
+  });
 }
 
 export async function fetchProductBySlug(slug: string) {

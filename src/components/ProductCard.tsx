@@ -59,7 +59,7 @@ export function ProductCard({ product, hideBadge = false }: { product: Product; 
       <button
         onClick={(e) => {
           e.preventDefault();
-          add({ id: product.id, slug: product.slug, name: product.name, price: display, image_url: product.image_url });
+          add({ id: product.id, slug: product.slug, name: product.name, price: display, image_url: base });
           toast.success("Added to bag");
         }}
         className="mt-3 w-full border border-foreground py-2 text-[11px] tracking-luxe transition-colors hover:bg-foreground hover:text-background"

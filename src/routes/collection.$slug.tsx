@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Layout } from "@/components/Layout";
 import { ProductCard } from "@/components/ProductCard";
 import { fetchCollectionBySlug } from "@/lib/collections";
+import { getCollectionImageUrl } from "@/lib/utils";
 
 export const Route = createFileRoute("/collection/$slug")({
   component: CollectionDetailPage,
@@ -53,7 +54,7 @@ function CollectionDetailPage() {
       <section className="relative isolate overflow-hidden">
         <div className="relative h-[42vh] min-h-[300px] w-full">
           {data.image_url && (
-            <img src={data.image_url} alt="" className="h-full w-full object-cover" />
+            <img src={getCollectionImageUrl(data.image_url)} alt="" className="h-full w-full object-cover" />
           )}
           <div className="absolute inset-0 grid place-items-center bg-foreground/25 px-6 text-center">
             <div>

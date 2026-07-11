@@ -3,7 +3,6 @@ import { useQuery } from "@tanstack/react-query";
 import { Layout } from "@/components/Layout";
 import { ProductCard } from "@/components/ProductCard";
 import { fetchProducts, primaryPhotoUrl } from "@/lib/products";
-import packagingMockup from "@/assets/packaging-mockup.png";
 import packagingBags from "@/assets/packaging-bags.png";
 import lifetimeCare from "@/assets/lifetime-care.jpg";
 import tradeIn from "@/assets/trade-in.jpg";
@@ -14,6 +13,7 @@ import gallery2 from "@/assets/gallery-2.jpg";
 import gallery3 from "@/assets/gallery-3.jpg";
 import gallery4 from "@/assets/gallery-4.jpg";
 import { resolveProductImage } from "@/lib/product-images";
+import { getCategoryImageUrl, CATEGORY_IMAGE_FILENAMES } from "@/lib/utils";
 
 export const Route = createFileRoute("/")({
   component: HomePage,
@@ -69,7 +69,7 @@ function HomePage() {
       {/* Categories */}
       <section className="mx-auto max-w-7xl px-5 py-20 md:px-8">
         <div className="flex items-end justify-between">
-          <h2 className="font-serif text-3xl md:text-4xl">The collection</h2>
+          <h2 className="font-serif text-3xl md:text-4xl">Shop by category</h2>
           <Link to="/shop" className="text-[11px] tracking-luxe text-muted-foreground hover:text-foreground">View all →</Link>
         </div>
         <div className="mt-10 grid gap-6 md:grid-cols-4">
@@ -116,7 +116,7 @@ function HomePage() {
             </ul>
           </div>
           <div className="grid gap-4">
-            <img src={packagingMockup} alt="LLUMI packaging box designs" className="w-full object-cover" loading="lazy" />
+            {/*<img src={packagingMockup} alt="LLUMI packaging box designs" className="w-full object-cover" loading="lazy" />*/}
             <img src={packagingBags} alt="LLUMI shopping bags and drawer boxes" className="w-full object-cover" loading="lazy" />
           </div>
         </div>
@@ -225,17 +225,11 @@ function HomePage() {
 }
 
 function CategoryCover({ category }: { category: "earrings" | "necklaces" | "rings" | "bracelets" }) {
-  const { data } = useQuery({
-    queryKey: ["products", "cat-cover", category],
-    queryFn: () => fetchProducts({ category, featured: true }),
-  });
-  const first = data?.[0];
-  if (!first) return <div className="h-full w-full bg-muted" />;
-  const src = primaryPhotoUrl(first) ?? resolveProductImage(first.image_url);
+  const src = getCategoryImageUrl(CATEGORY_IMAGE_FILENAMES[category]);
   return (
     <img
       src={src}
-      alt={first.name}
+      alt={category}
       loading="lazy"
       className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
       width={1024}

@@ -32,12 +32,13 @@ const tabs = [
 ] as const;
 
 const features = ["Sale", "New", "Best Seller"] as const;
-const metals = ["Silver", "Gold", "Blue"] as const;
+const metals = ["925 Sterling Silver"] as const;
+const platings = ["14K Gold + E-Coated", "Silver E-Coated", "Rose Gold + E-Coated"] as const;
 type Sort = "featured" | "best-selling" | "price-asc" | "date-desc";
 
 // Prices are stored in MMK.
 const MIN_MMK = 0;
-const MAX_MMK = 5000000;
+const MAX_MMK = 1000000;
 const PAGE = 8;
 const fmtMMK = (n: number) => `${new Intl.NumberFormat("en-US").format(n)} MMK`;
 
@@ -51,6 +52,7 @@ function ShopPage() {
   const [filtersOpen, setFiltersOpen] = useState(false);
   const [selectedFeatures, setSelectedFeatures] = useState<string[]>([]);
   const [selectedMetals, setSelectedMetals] = useState<string[]>([]);
+  const [selectedPlatings, setSelectedPlatings] = useState<string[]>([]);
   const [minPrice, setMinPrice] = useState(MIN_MMK);
   const [maxPrice, setMaxPrice] = useState(MAX_MMK);
   const [sort, setSort] = useState<Sort>("featured");
@@ -73,6 +75,9 @@ function ShopPage() {
     if (selectedMetals.length) {
       out = out.filter((p) => p.metal && selectedMetals.includes(p.metal));
     }
+    if (selectedPlatings.length) {
+      out = out.filter((p) => p.plating && selectedPlatings.includes(p.plating));
+    }
     out = out.filter((p) => {
       const mmk = Number(p.sale_price ?? p.price);
       return mmk >= minPrice && mmk <= maxPrice;
@@ -82,7 +87,7 @@ function ShopPage() {
     else if (sort === "best-selling") out.sort((a, b) => Number(!!b.is_best_seller) - Number(!!a.is_best_seller));
     else if (sort === "featured") out.sort((a, b) => Number(!!b.is_featured) - Number(!!a.is_featured));
     return out;
-  }, [data, selectedFeatures, selectedMetals, minPrice, maxPrice, sort]);
+  }, [data, selectedFeatures, selectedMetals, selectedPlatings, minPrice, maxPrice, sort]);
 
   useEffect(() => { setVisible(PAGE); }, [category, selectedFeatures, selectedMetals, minPrice, maxPrice, sort]);
 
@@ -171,18 +176,23 @@ function ShopPage() {
                   <Check key={m} label={m} checked={selectedMetals.includes(m)} onChange={() => toggle(selectedMetals, setSelectedMetals, m)} />
                 ))}
               </Accordion>
+              <Accordion title="Plating">
+                {platings.map((p) => (
+                  <Check key={p} label={p} checked={selectedPlatings.includes(p)} onChange={() => toggle(selectedPlatings, setSelectedPlatings, p)} />
+                ))}
+              </Accordion>
               <Accordion title="Price">
                 <div className="space-y-3">
                   <div className="flex items-center gap-2">
                     <input
-                      type="number" min={MIN_MMK} max={MAX_MMK} step={5000} value={minPrice}
+                      type="number" min={MIN_MMK} max={MAX_MMK} step={10000} value={minPrice}
                       onChange={(e) => setMinPrice(Math.max(MIN_MMK, Math.min(Number(e.target.value), maxPrice)))}
                       className="w-full border border-border bg-background px-2 py-1.5 text-xs"
                       aria-label="Min price"
                     />
                     <span className="text-muted-foreground">–</span>
                     <input
-                      type="number" min={MIN_MMK} max={MAX_MMK} step={5000} value={maxPrice}
+                      type="number" min={MIN_MMK} max={MAX_MMK} step={10000} value={maxPrice}
                       onChange={(e) => setMaxPrice(Math.min(MAX_MMK, Math.max(Number(e.target.value), minPrice)))}
                       className="w-full border border-border bg-background px-2 py-1.5 text-xs"
                       aria-label="Max price"
@@ -190,12 +200,12 @@ function ShopPage() {
                   </div>
                   <div className="relative h-5">
                     <input
-                      type="range" min={MIN_MMK} max={MAX_MMK} step={5000} value={minPrice}
+                      type="range" min={MIN_MMK} max={MAX_MMK} step={10000} value={minPrice}
                       onChange={(e) => setMinPrice(Math.min(Number(e.target.value), maxPrice))}
                       className="absolute inset-x-0 top-1/2 -translate-y-1/2 w-full accent-foreground"
                     />
                     <input
-                      type="range" min={MIN_MMK} max={MAX_MMK} step={5000} value={maxPrice}
+                      type="range" min={MIN_MMK} max={MAX_MMK} step={10000} value={maxPrice}
                       onChange={(e) => setMaxPrice(Math.max(Number(e.target.value), minPrice))}
                       className="absolute inset-x-0 top-1/2 -translate-y-1/2 w-full accent-foreground"
                     />

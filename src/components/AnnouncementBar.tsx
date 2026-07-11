@@ -1,5 +1,6 @@
+import logo from "@/assets/llumi-bw-bbg.png";
 const messages = [
-  "Grand Opening Sale — Up to 30% Off",
+  "Grand Opening Sale — Up to 10% Off",
   "Lifetime Warranty on Every Piece",
   "Fast, Insured Shipping Nationwide",
   "Trade-In Program Available",
@@ -14,7 +15,8 @@ export function AnnouncementBar() {
         {loop.map((m, i) => (
           <span key={i} className="mx-8 inline-flex items-center gap-8">
             {m}
-            <span aria-hidden className="opacity-40">✦</span>
+            <img src={logo} alt="" className="h-4 w-4" />
+            {/* <span aria-hidden className="opacity-40">✦</span> */}
           </span>
         ))}
       </div>

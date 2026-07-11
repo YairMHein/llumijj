@@ -22,7 +22,7 @@ function CartPage() {
               {items.map((i) => (
                 <li key={`${i.id}:${i.variant_id ?? ""}`} className="flex gap-4 py-5">
                   <Link to="/product/$slug" params={{ slug: i.slug }} className="shrink-0">
-                    <img src={resolveProductImage(i.image_url)} alt="" className="h-24 w-20 object-cover" />
+                    <img src={i.image_url} alt="" className="h-24 w-20 object-cover" />
                   </Link>
                   <div className="flex flex-1 flex-col">
                     <div className="flex justify-between gap-3">
@@ -60,8 +60,8 @@ function CartPage() {
                 <span>{formatMoney(subtotal)}</span>
               </div>
               <div className="mt-2 flex justify-between text-sm text-muted-foreground">
-                <span>Deposit due today (30%)</span>
-                <span>{formatMoney(subtotal * 0.3)}</span>
+                <span>Deposit due today (50%)</span>
+                <span>{formatMoney(subtotal * 0.5)}</span>
               </div>
               <Link to="/checkout" className="mt-6 block bg-foreground py-3 text-center text-[11px] tracking-luxe text-background">
                 Checkout (preorder)

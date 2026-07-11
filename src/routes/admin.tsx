@@ -37,9 +37,12 @@ type Product = {
   price: number;
   sale_price: number | null;
   image_url: string;
-  material: string | null;
+  stone: string | null;
   metal: string | null;
   sku: string | null;
+  plating: string | null;
+  size: string | null;
+  weight: string | null;
   is_featured: boolean | null;
   is_new: boolean | null;
   is_best_seller: boolean | null;
@@ -68,18 +71,22 @@ type VariantRow = {
 };
 
 const CATEGORIES = ["earrings", "necklaces", "rings", "bracelets"] as const;
+const METAL = ["925 Sterling Silver"] as const;
+const PLATINGS = ["14K Gold + E-Coated", "Silver E-Coated", "Rose Gold + E-Coated"] as const;
 
 const emptyForm = {
   name: "",
   slug: "",
-  category: "necklaces",
+  category: "earrings",
   price: "",
   sale_price: "",
   description: "",
-  material: "",
-  metal: "",
+  stone: "",
+  metal: "925 Sterling Silver",
   sku: "",
-  image_url: "",
+  plating: "14K Gold + E-Coated",
+  size: "",
+  weight: "",
   is_featured: false,
   is_new: false,
   is_best_seller: false,
@@ -263,10 +270,12 @@ function AdminPortal() {
       price: String(p.price),
       sale_price: p.sale_price != null ? String(p.sale_price) : "",
       description: p.description ?? "",
-      material: p.material ?? "",
+      stone: p.stone ?? "",
       metal: p.metal ?? "",
       sku: p.sku ?? "",
-      image_url: p.image_url,
+      plating: p.plating ?? "14K Gold + E-Coated",
+      size: p.size ?? "",
+      weight: p.weight ?? "",
       is_featured: !!p.is_featured,
       is_new: !!p.is_new,
       is_best_seller: !!p.is_best_seller,
@@ -287,10 +296,12 @@ function AdminPortal() {
       price: Number(form.price),
       sale_price: form.sale_price ? Number(form.sale_price) : null,
       description: form.description || null,
-      material: form.material || null,
+      stone: form.stone || null,
       metal: form.metal || null,
       sku: form.sku.trim() || null,
-      image_url: form.image_url || "placeholder.jpg",
+      plating: form.plating || null,
+      size: form.size || null,
+      weight: form.weight || null,
       is_featured: form.is_featured,
       is_new: form.is_new,
       is_best_seller: form.is_best_seller,
@@ -455,11 +466,11 @@ function AdminPortal() {
                       <td className="px-4 py-3">
                         {p.sale_price ? (
                           <>
-                            <span className="line-through text-muted-foreground">${p.price}</span>{" "}
-                            <span className="text-foreground">${p.sale_price}</span>
+                            <span className="line-through text-muted-foreground">{p.price}</span>{" "}
+                            <span className="text-foreground">{p.sale_price}</span>
                           </>
                         ) : (
-                          <>${p.price}</>
+                          <>{p.price}</>
                         )}
                       </td>
                       <td className="px-4 py-3">
@@ -559,6 +570,17 @@ function AdminPortal() {
               </Select>
             </div>
             <div className="space-y-1.5">
+              <Label>Metal</Label>
+              <Select value={form.metal} onValueChange={(v) => setForm({ ...form, category: v })}>
+                <SelectTrigger><SelectValue /></SelectTrigger>
+                <SelectContent>
+                  {METAL.map((m) => (
+                    <SelectItem key={m} value={m} className="capitalize">{m}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="space-y-1.5">
               <Label>Price (MMK) *</Label>
               <Input type="number" step="0.01" value={form.price} onChange={(e) => setForm({ ...form, price: e.target.value })} />
             </div>
@@ -567,20 +589,31 @@ function AdminPortal() {
               <Input type="number" step="0.01" value={form.sale_price} onChange={(e) => setForm({ ...form, sale_price: e.target.value })} />
             </div>
             <div className="space-y-1.5">
-              <Label>Image key (legacy)</Label>
-              <Input value={form.image_url} onChange={(e) => setForm({ ...form, image_url: e.target.value })} placeholder="ring-1.jpg" />
-            </div>
-            <div className="space-y-1.5">
-              <Label>Material</Label>
-              <Input value={form.material} onChange={(e) => setForm({ ...form, material: e.target.value })} />
-            </div>
-            <div className="space-y-1.5">
-              <Label>Metal / Finish</Label>
-              <Input value={form.metal} onChange={(e) => setForm({ ...form, metal: e.target.value })} />
-            </div>
-            <div className="space-y-1.5">
               <Label>SKU</Label>
               <Input value={form.sku} onChange={(e) => setForm({ ...form, sku: e.target.value })} placeholder="LLM-RNG-001" />
+            </div>
+            <div className="space-y-1.5">
+              <Label>Plating *</Label>
+              <Select value={form.plating} onValueChange={(v) => setForm({ ...form, plating: v })}>
+                <SelectTrigger><SelectValue /></SelectTrigger>
+                <SelectContent>
+                  {PLATINGS.map((p) => (
+                    <SelectItem key={p} value={p} className="capitalize">{p}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="space-y-1.5">
+              <Label>Stone</Label>
+              <Input value={form.stone} onChange={(e) => setForm({ ...form, stone: e.target.value })} />
+            </div>
+            <div className="space-y-1.5">
+              <Label>Size</Label>
+              <Input value={form.size} onChange={(e) => setForm({ ...form, size: e.target.value })} placeholder="" />
+            </div>
+            <div className="space-y-1.5">
+              <Label>Weight</Label>
+              <Input value={form.weight} onChange={(e) => setForm({ ...form, weight: e.target.value })} placeholder="" />
             </div>
             <div className="md:col-span-2 space-y-1.5">
               <Label>Description</Label>

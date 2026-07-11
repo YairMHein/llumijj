@@ -261,28 +261,29 @@ export type Database = {
           created_at: string | null
           description: string | null
           id: string
-          image_url: string
           is_best_seller: boolean | null
           is_featured: boolean | null
           is_new: boolean | null
-          material: string | null
+          stone: string | null
           metal: string | null
           name: string
           price: number
           sale_price: number | null
           sku: string | null
           slug: string
+          plating: string | null
+          size: string | null
+          weight: string | null
         }
         Insert: {
           category: string
           created_at?: string | null
           description?: string | null
           id?: string
-          image_url: string
           is_best_seller?: boolean | null
           is_featured?: boolean | null
           is_new?: boolean | null
-          material?: string | null
+          stone?: string | null
           metal?: string | null
           name: string
           price: number
@@ -295,17 +296,19 @@ export type Database = {
           created_at?: string | null
           description?: string | null
           id?: string
-          image_url?: string
           is_best_seller?: boolean | null
           is_featured?: boolean | null
           is_new?: boolean | null
-          material?: string | null
+          stone?: string | null
           metal?: string | null
           name?: string
           price?: number
           sale_price?: number | null
           sku?: string | null
           slug?: string
+          plating?: string | null
+          size?: string | null
+          weight?: string | null
         }
         Relationships: []
       }
