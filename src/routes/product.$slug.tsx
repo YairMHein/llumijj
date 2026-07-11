@@ -6,12 +6,7 @@ import { Layout } from "@/components/Layout";
 import { ProductCard } from "@/components/ProductCard";
 import { fetchProductBySlug, fetchProducts, sortedPhotos, sortedVariants, variantPrice } from "@/lib/products";
 import { fetchCollectionsByProductId } from "@/lib/collections";
-import { resolveProductImage, resolveWornImage } from "@/lib/product-images";
 import { useCart, formatMoney } from "@/lib/cart";
-import packaging from "@/assets/packaging.jpg";
-import packagingOpen from "@/assets/packaging-open.jpg";
-import lifestyle from "@/assets/lifetime-care.jpg";
-import gallery from "@/assets/gallery-1.jpg";
 
 export const Route = createFileRoute("/product/$slug")({
   component: ProductPage,

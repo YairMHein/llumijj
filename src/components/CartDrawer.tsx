@@ -4,8 +4,7 @@ import { createPortal } from "react-dom";
 import { useQuery } from "@tanstack/react-query";
 import { X } from "lucide-react";
 import { useCart, formatMoney } from "@/lib/cart";
-import { fetchProducts, fetchProductsCart } from "@/lib/products";
-import { resolveProductImage } from "@/lib/product-images";
+import { fetchProductsCart } from "@/lib/products";
 
 export function CartDrawer({ open, onClose }: { open: boolean; onClose: () => void }) {
   const { items, setQty, remove, subtotal, add } = useCart();

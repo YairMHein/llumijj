@@ -47,6 +47,8 @@ export type ProductCart = {
   id: string;
   slug: string;
   name: string;
+  category: string;
+  plating: string | null;
   price: number;
   sale_price: number | null;
   sku: string | null;
@@ -79,6 +81,8 @@ export async function fetchProductsCart(filters?: {
       id,
       slug,
       name,
+      plating,
+      category,
       price,
       sale_price,
       sku,
@@ -106,6 +110,8 @@ export async function fetchProductsCart(filters?: {
       id: p.id,
       slug: p.slug,
       name: p.name,
+      category: p.category,
+      plating: p.plating,
       price: Number(p.price),
       sale_price: p.sale_price != null ? Number(p.sale_price) : null,
       sku: p.sku ?? null,
