@@ -24,7 +24,7 @@ function SalePage() {
         <p className="mt-3 max-w-xl text-muted-foreground">A small edit of pieces at a softer price. While they last.</p>
         <div className="mt-12 grid grid-cols-2 gap-x-6 gap-y-12 md:grid-cols-3 lg:grid-cols-4">
           {data.map((p) => <ProductCard key={p.id} product={p} />)}
-          {data.length === 0 && <p className="text-sm text-muted-foreground">Nothing on sale right now.</p>}
+          {data.length === 0 && <p className="text-sm text-center text-muted-foreground">Coming Soon. Stay Tuned.</p>}
         </div>
       </section>
     </Layout>

@@ -1,19 +1,21 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useState } from "react";
+
 import { useQuery } from "@tanstack/react-query";
 import { Layout } from "@/components/Layout";
 import { ProductCard } from "@/components/ProductCard";
-import { fetchProducts, primaryPhotoUrl } from "@/lib/products";
-import packagingBags from "@/assets/packaging-bags.png";
+import { fetchProducts } from "@/lib/products";
+import whySilver from "@/assets/why_silver.png";
 import lifetimeCare from "@/assets/lifetime-care.jpg";
 import tradeIn from "@/assets/trade-in.jpg";
-import heroVideo from "@/assets/hero-video.mp4";
-import heroPoster from "@/assets/hero-model.jpg";
-import gallery1 from "@/assets/gallery-1.jpg";
-import gallery2 from "@/assets/gallery-2.jpg";
-import gallery3 from "@/assets/gallery-3.jpg";
-import gallery4 from "@/assets/gallery-4.jpg";
-import { resolveProductImage } from "@/lib/product-images";
+import heroVideo from "@/assets/home-video.mp4";
+import heroPoster from "@/assets/L.png";
+import gallery1 from "@/assets/gallery-1.png";
+import gallery2 from "@/assets/gallery-2.png";
+import gallery3 from "@/assets/gallery-3.png";
+import gallery4 from "@/assets/gallery-4.png";
 import { getCategoryImageUrl, CATEGORY_IMAGE_FILENAMES } from "@/lib/utils";
+import logo from "@/assets/llumi-bw-bbg.png";
 
 export const Route = createFileRoute("/")({
   component: HomePage,
@@ -25,7 +27,54 @@ export const Route = createFileRoute("/")({
   }),
 });
 
+const content = {
+  en: {
+    eyebrow: "Why LLUMI",
+    title: "Cared for, always.",
+    description: "Every piece purchased from LLUMI is covered by complimentary lifetime polishing and eligible for our trade-in program — so your jewellery grows with you.",
+    label1:"Lifetime warranty & care",
+    label2:"Trade-in program",
+    label1desc:"We polish, re-plate and refresh every LLUMI piece — free, for life.",
+    label2desc:"Eligible pieces can be traded toward something new — up to 40% off your next piece.",
+  },
+  my: {
+    eyebrow: "ဘာကြောင့် LLUMI",
+    title: "တစ်သက်တာစောင့်ရှောက်မှု။",
+    description: "LLUMI-ယူမီ မှဝယ်ယူသည့်လက်ဝတ်ရတနာတိုင်းအတွက် တစ်သက်တာအခမဲ့ Polishတင်ပေးသည့် ဝန်ဆောင်မှုကိုပေးအပ်ထားပြီး၊ ၇၀%အထိပြန်လည်ရရှိနိုင်မယ့် အလဲအထပ်အစီအစဉ်လည်းပါဝင်တာကြောင့် သင်နဲ့အတူအမြဲတမ်းလှပခေတ်မှီတဲ့လက်ဝတ်ရတနာများအတူရှိနေမှာပါ",
+    label1:"တစ်သက်တာအာမခံမှု",
+    label2:"အလဲအထပ်အစီအစဉ်",
+    label1desc:"LLUMI-ယူမီ မှ လက်ဝတ်ရတနာတိုင်းကို အခမဲ့ Polish၊ အရောင်တင်၊ ပြန်လည်ပြုပြင်ပေးပါသည်။",
+    label2desc:"အလဲအထပ်အစီအစဉ်အတွက် အရည်အသွေးပြည့်မီသော လက်ဝတ်ရတနာများကို သင့်ရဲ့ နောက်ထပ်လက်ဝတ်ရတနာသို့ အလဲအထပ်ပြုလုပ်နိုင်ပြီး ၇၀% အထိ လျှော့စျေးရရှိနိုင်ပါသည်။",
+  },
+} as const;
+
+const content_why_silver = {
+  en: {
+    eyebrow: "Why choose 925 silver?",
+    title: "Jewelry is more than decoration—it's something you wear every day to express your style and story. Fashion jewelry may be affordable, but it often tarnishes quickly, loses its shine, and can break easily. On the other hand, fine jewelry made from solid gold or diamonds is a valuable investment, but its high price makes it less practical for everyday wear.",
+    label1:"Timeless Beauty – A naturally elegant shine that never goes out of style.",
+    label2:"Affordable Luxury – Enjoy the premium look and feel of fine jewelry without the premium price.",
+    label3:"Lifetime Value – Sterling silver can be polished and restored, allowing it to look beautiful for years.",
+    label1desc:"We polish, re-plate and refresh every LLUMI piece — free, for life.",
+    label2desc:"Eligible pieces can be traded toward something new — up to 40% off your next piece.",
+  },
+  my: {
+    eyebrow: "ဘာကြောင့် 925 Sterling Silver ကို ရွေးချယ်သင့်သလဲ?",
+    title: "လက်ဝတ်ရတနာဆိုတာ အလှဆင်ဖို့တင်မဟုတ်ဘဲ ကိုယ့်ရဲ့စတိုင်နဲ့ ကိုယ်ပိုင်ဇာတ်လမ်းကို ဖော်ပြပေးတဲ့ အရာတစ်ခုပါ။ Fashion Jewelry တွေက ဈေးနှုန်းသက်သာပေမယ့် အရောင်လွယ်လွယ်မှိန်တတ်ပြီး ကျိုးပဲ့လွယ်ကာ ကြာရှည်အသုံးပြုဖို့ မသင့်တော်ပါဘူး။ အခြားတစ်ဖက်မှာတော့ ရွှေ၊ စိန်စတဲ့ Premium Jewelry တွေက အရည်အသွေးမြင့်ပေမယ့် နေ့စဉ်ဝတ်ဆင်ဖို့ ဈေးနှုန်းမြင့်မားတတ်ပါတယ်။",
+    description: "LLUMI-ယူမီ မှဝယ်ယူသည့်လက်ဝတ်ရတနာတိုင်းအတွက် တစ်သက်တာအခမဲ့ Polishတင်ပေးသည့် ဝန်ဆောင်မှုကိုပေးအပ်ထားပြီး၊ ၇၀%အထိပြန်လည်ရရှိနိုင်မယ့် အလဲအထပ်အစီအစဉ်လည်းပါဝင်တာကြောင့် သင်နဲ့အတူအမြဲတမ်းလှပခေတ်မှီတဲ့လက်ဝတ်ရတနာများအတူရှိနေမှာပါ",
+    label1:"နေ့စဉ်ဝတ်ဆင်နိုင်တယ် – လွယ်လွယ်မကျိုးပဲ့ဘဲ ကြာရှည်အသုံးပြုနိုင်ပါတယ်",
+    label2:"Luxury ကို သင့်တင့်တဲ့ဈေးနှုန်းနဲ့ ရရှိခြင်း – ရွှေလက်ဝတ်ရတနာလို အရည်အသွေးမြင့်တဲ့ ခံစားမှုကို ပိုမိုသက်သာတဲ့ ဈေးနှုန်းနဲ့ ပိုင်ဆိုင်နိုင်ပါတယ်။",
+    label3:"နှစ်ရှည်အသုံးပြုနိုင်ခြင်း – Sterling Silver တွေဟာ Professional Polishing ပြန်လုပ်နိုင်တာကြောင့် နှစ်ပေါင်းများစွာ လှပနေစေပါတယ်။",
+    label1desc:"LLUMI-ယူမီ မှ လက်ဝတ်ရတနာတိုင်းကို အခမဲ့ Polish၊ အရောင်တင်၊ ပြန်လည်ပြုပြင်ပေးပါသည်။",
+    label2desc:"အလဲအထပ်အစီအစဉ်အတွက် အရည်အသွေးပြည့်မီသော လက်ဝတ်ရတနာများကို သင့်ရဲ့ နောက်ထပ်လက်ဝတ်ရတနာသို့ အလဲအထပ်ပြုလုပ်နိုင်ပြီး ၇၀% အထိ လျှော့စျေးရရှိနိုင်ပါသည်။",
+  },
+} as const;
+
 function HomePage() {
+  const [lang, setLang] = useState<"en" | "my">("en");
+  const t = content[lang];
+  const t2 = content_why_silver[lang];
+
   const { data: featured = [] } = useQuery({
     queryKey: ["products", "featured"],
     queryFn: () => fetchProducts({ featured: true }),
@@ -89,38 +138,52 @@ function HomePage() {
       </section>
 
       {/* Featured */}
-      <section className="mx-auto max-w-7xl px-5 pb-20 md:px-8">
-        <h2 className="font-serif text-3xl md:text-4xl">Featured pieces</h2>
-        <div className="mt-10 grid grid-cols-2 gap-6 md:grid-cols-4">
-          {featured.slice(0, 4).map((p) => (
-            <ProductCard key={p.id} product={p} />
-          ))}
+      <section style={{ backgroundColor: "#fff9ee", color: "#930f31" }} className="relative overflow-hidden">
+        <div className="mx-auto max-w-7xl px-5 py-20 md:px-8">
+          <h2 className="font-serif text-3xl md:text-4xl">Featured pieces</h2>
+          <div className="mt-10 grid grid-cols-2 gap-6 md:grid-cols-4">
+            {featured.slice(0, 4).map((p) => (
+              <ProductCard key={p.id} product={p} />
+            ))}
+          </div>
         </div>
+        
       </section>
 
       {/* Packaging */}
       <section className="bg-foreground text-background">
-        <div className="mx-auto grid max-w-7xl items-center gap-12 px-5 py-20 md:grid-cols-2 md:px-8">
-          <div>
-            <p className="text-[11px] tracking-luxe text-background/60">Packaging</p>
-            <h2 className="mt-3 font-serif text-4xl md:text-5xl">A small ceremony.</h2>
-            <p className="mt-5 max-w-md text-background/75">
-              Every LLUMI piece arrives in our signature pistachio atelier box,
-              hand-stamped with the LLUMI mark. Inside, a soft velvet pouch cradles
-              your piece — designed for the moment of opening.
-            </p>
-            <ul className="mt-8 space-y-2 text-sm text-background/75">
-              <li>· Hand-finished pistachio gift box</li>
-              <li>· Embossed LLUMI wordmark</li>
-              <li>· Soft velvet pouch & care card included</li>
-            </ul>
-          </div>
-          <div className="grid gap-4">
-            {/*<img src={packagingMockup} alt="LLUMI packaging box designs" className="w-full object-cover" loading="lazy" />*/}
-            <img src={packagingBags} alt="LLUMI shopping bags and drawer boxes" className="w-full object-cover" loading="lazy" />
-          </div>
-        </div>
-      </section>
+  <div className="mx-auto max-w-7xl px-5 py-20 md:px-8">
+    
+    <div className="flex items-start justify-between gap-4 mb-8">
+      <p className="text-[11px] tracking-luxe text-background/60">Why Silver</p>
+      <LangToggle2 lang={lang} onChange={setLang} />
+    </div>
+
+    <div className="grid items-center gap-12 md:grid-cols-[2fr_1fr]">
+      <div>
+        <h2 className="font-serif text-4xl">{t2.eyebrow}</h2>
+        <p className="mt-5 max-w text-background/75">
+          {t2.title}
+        </p>
+        <ul className="mt-8 space-y-2 text-sm text-background/75">
+          <li className="flex items-center gap-2">
+            <img src={logo} alt="" className="h-4 w-4 shrink-0" /> {t2.label1}
+          </li>
+          <li className="flex items-center gap-2">
+            <img src={logo} alt="" className="h-4 w-4 shrink-0" /> {t2.label2}
+          </li>
+          <li className="flex items-center gap-2">
+            <img src={logo} alt="" className="h-4 w-4 shrink-0" /> {t2.label3}
+          </li>
+        </ul>
+      </div>
+      <div>
+        <img src={whySilver} alt="LLUMI shopping bags and drawer boxes" className="w-full object-cover" loading="lazy" />
+      </div>
+    </div>
+
+  </div>
+</section>
 
       {/* Gallery — worn on the wall */}
       <section style={{ backgroundColor: "#930f31", color: "#FFF9ee" }} className="relative overflow-hidden">
@@ -147,11 +210,12 @@ function HomePage() {
                 <span aria-hidden className="absolute left-1/2 -top-6 h-6 w-px -translate-x-1/2 bg-background/50" />
                 <span aria-hidden className="absolute left-1/2 -top-7 block h-2 w-2 -translate-x-1/2 rounded-full bg-background" />
                 <div className="overflow-hidden bg-background/10 shadow-2xl ring-1 ring-background/30">
-                  {i === 0 ? (
+                  {/* {i === 0 ? (
                     <video src={heroVideo} poster={g.src} autoPlay muted loop playsInline className="aspect-[4/5] w-full object-cover" />
                   ) : (
                     <img src={g.src} alt={g.label} loading="lazy" width={1024} height={1280} className="aspect-[4/5] w-full object-cover" />
-                  )}
+                  )} */}
+                    <img src={g.src} alt={g.label} loading="lazy" width={1024} height={1280} className="aspect-[4/5] w-full object-cover" />
                 </div>
                 <figcaption className="mt-3 text-center text-[10px] tracking-luxe text-background/80">{g.label}</figcaption>
               </figure>
@@ -160,7 +224,7 @@ function HomePage() {
         </div>
       </section>
 
-      {/* Stats */}
+      {/* Stats 
       <section className="mx-auto max-w-7xl px-5 py-20 md:px-8">
         <div className="grid grid-cols-2 gap-y-12 md:grid-cols-4">
           {[
@@ -175,28 +239,29 @@ function HomePage() {
             </div>
           ))}
         </div>
-      </section>
+      </section>*/}
 
       {/* Care & trade-in */}
       <section className="border-t border-border bg-muted/40">
         <div className="mx-auto max-w-7xl px-5 py-20 md:px-8">
-          <div className="max-w-xl">
-            <p className="text-[11px] tracking-luxe text-muted-foreground">Owned for life</p>
-            <h2 className="mt-3 font-serif text-4xl md:text-5xl">Cared for, always.</h2>
+          <div className="flex items-start justify-between gap-4">
+              <p className="text-[11px] tracking-luxe text-muted-foreground">Owned for life</p>
+              <LangToggle lang={lang} onChange={setLang} />
+             </div>
+            
+            <h2 className="mt-3 font-serif text-4xl md:text-5xl">{t.title}</h2>
             <p className="mt-4 text-muted-foreground">
-              Every piece purchased from LLUMI is covered by complimentary lifetime polishing and
-              eligible for our trade-in program — so your jewellery grows with you.
+             {t.description}
             </p>
-          </div>
           <div className="mt-12 grid gap-8 md:grid-cols-2">
             <article className="group overflow-hidden border border-border bg-background">
               <div className="aspect-[5/3] overflow-hidden">
                 <img src={lifetimeCare} alt="Polishing service" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]" loading="lazy" />
               </div>
               <div className="p-6">
-                <h3 className="font-serif text-2xl">Lifetime warranty & care</h3>
+                <h3 className="font-serif text-2xl">{t.label1}</h3>
                 <p className="mt-2 text-sm text-muted-foreground">
-                  We polish, re-plate and refresh every LLUMI piece — free, for life.
+                  {t.label1desc}
                 </p>
                 <Link to="/lifetime-care" className="mt-4 inline-flex items-center gap-2 text-[11px] tracking-luxe hover:text-foreground">
                   Read more <span aria-hidden>→</span>
@@ -208,9 +273,9 @@ function HomePage() {
                 <img src={tradeIn} alt="Trade-in program" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]" loading="lazy" />
               </div>
               <div className="p-6">
-                <h3 className="font-serif text-2xl">Trade-in program</h3>
+                <h3 className="font-serif text-2xl">{t.label2}</h3>
                 <p className="mt-2 text-sm text-muted-foreground">
-                  Eligible pieces can be traded toward something new — up to 40% off your next piece.
+                  {t.label2desc}
                 </p>
                 <Link to="/trade-in" className="mt-4 inline-flex items-center gap-2 text-[11px] tracking-luxe hover:text-foreground">
                   Read more <span aria-hidden>→</span>
@@ -235,5 +300,37 @@ function CategoryCover({ category }: { category: "earrings" | "necklaces" | "rin
       width={1024}
       height={1280}
     />
+  );
+}
+
+export function LangToggle({ lang, onChange }: { lang: "en" | "my"; onChange: (l: "en" | "my") => void }) {
+  return (
+    <div className="inline-flex shrink-0 border border-border text-[11px] tracking-luxe">
+      {(["en", "my"] as const).map((l) => (
+        <button
+          key={l}
+          onClick={() => onChange(l)}
+          className={`px-3 py-1.5 transition-colors ${lang === l ? "bg-foreground text-background" : "text-foreground/70 hover:text-foreground"}`}
+        >
+          {l === "en" ? "EN" : "မြန်မာ"}
+        </button>
+      ))}
+    </div>
+  );
+}
+
+export function LangToggle2({ lang, onChange }: { lang: "en" | "my"; onChange: (l: "en" | "my") => void }) {
+  return (
+    <div className="inline-flex shrink-0 border border-border text-[11px] tracking-luxe">
+      {(["en", "my"] as const).map((l) => (
+        <button
+          key={l}
+          onClick={() => onChange(l)}
+          className={`px-3 py-1.5 transition-colors ${lang === l ? "bg-background text-foreground" : "text-background/70 hover:text-background"}`}
+        >
+          {l === "en" ? "EN" : "မြန်မာ"}
+        </button>
+      ))}
+    </div>
   );
 }
