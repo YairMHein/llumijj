@@ -104,6 +104,7 @@ function AdminPortal() {
   const [signedIn, setSignedIn] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
   const [products, setProducts] = useState<Product[]>([]);
+  const [categoryFilter, setCategoryFilter] = useState<string>("all"); 
   const [photosByProduct, setPhotosByProduct] = useState<Record<string, PhotoRow[]>>({});
   const [variantsByProduct, setVariantsByProduct] = useState<Record<string, VariantRow[]>>({});
   const [loading, setLoading] = useState(true);
@@ -419,6 +420,10 @@ function AdminPortal() {
     );
   }
 
+  const filteredProducts =
+    categoryFilter === "all"
+      ? products
+      : products.filter((p) => p.category === categoryFilter);
 
   return (
     <Layout>
@@ -430,9 +435,25 @@ function AdminPortal() {
               Manage the catalog and product photos.
             </p>
           </div>
-          <Button onClick={openNew}>
-            <Plus className="mr-1.5 size-4" /> New product
-          </Button>
+          <div className="flex items-center gap-3">
+    <Select value={categoryFilter} onValueChange={setCategoryFilter}>
+      <SelectTrigger className="w-[160px]">
+        <SelectValue />
+      </SelectTrigger>
+      <SelectContent>
+        <SelectItem value="all">All categories</SelectItem>
+        {CATEGORIES.map((c) => (
+          <SelectItem key={c} value={c} className="capitalize">
+            {c}
+          </SelectItem>
+        ))}
+      </SelectContent>
+    </Select>
+
+    <Button onClick={openNew}>
+      <Plus className="mr-1.5 size-4" /> New product
+    </Button>
+  </div>
         </div>
 
         <div className="mt-8 overflow-hidden rounded-lg border border-border">
@@ -440,7 +461,7 @@ function AdminPortal() {
             <div className="flex justify-center py-12">
               <Loader2 className="size-6 animate-spin" />
             </div>
-          ) : products.length === 0 ? (
+          ) : filteredProducts.length === 0 ? (
             <p className="py-12 text-center text-sm text-muted-foreground">No products yet.</p>
           ) : (
             <table className="w-full text-sm">
@@ -454,7 +475,7 @@ function AdminPortal() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-border">
-                {products.map((p) => {
+                {filteredProducts.map((p) => {
                   const photos = photosByProduct[p.id] ?? [];
                   return (
                     <tr key={p.id} className="align-top">

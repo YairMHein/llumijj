@@ -5,8 +5,8 @@ import { ChevronDown, SlidersHorizontal, X } from "lucide-react";
 import { Layout } from "@/components/Layout";
 import { ProductCard } from "@/components/ProductCard";
 import { fetchProducts, type Product } from "@/lib/products";
-import shopHero1 from "@/assets/shop-hero-1.jpg";
-import shopHero2 from "@/assets/shop-hero-2.jpg";
+import shopHero1 from "@/assets/shop-hero-3.png";
+import shopHero2 from "@/assets/shop-hero-4.png";
 
 type Search = { category?: string };
 

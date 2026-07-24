@@ -63,7 +63,7 @@
   /* Packaging accents */
   --pistachio: oklch(0.93 0.12 125); /* #e2f487 */
   --coral: oklch(0.74 0.16 35);      /* #fd7c5e */
-  --sale: oklch(0.74 0.16 35);
+  --sale: oklch(0.4281 0.162 15.14);
   --sale-foreground: oklch(0.992 0 0);
 }
 

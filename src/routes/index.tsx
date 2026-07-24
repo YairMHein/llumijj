@@ -5,7 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Layout } from "@/components/Layout";
 import { ProductCard } from "@/components/ProductCard";
 import { fetchProducts } from "@/lib/products";
-import whySilver from "@/assets/why_silver.png";
+import whySilver from "@/assets/why_silver.jpg";
 import lifetimeCare from "@/assets/lifetime-care.jpg";
 import tradeIn from "@/assets/trade-in.jpg";
 import heroVideo from "@/assets/home-video.mp4";
@@ -147,7 +147,6 @@ function HomePage() {
             ))}
           </div>
         </div>
-        
       </section>
 
       {/* Packaging */}
@@ -166,13 +165,13 @@ function HomePage() {
           {t2.title}
         </p>
         <ul className="mt-8 space-y-2 text-sm text-background/75">
-          <li className="flex items-center gap-2">
+          <li className="flex items-start gap-2">
             <img src={logo} alt="" className="h-4 w-4 shrink-0" /> {t2.label1}
           </li>
-          <li className="flex items-center gap-2">
+          <li className="flex items-start gap-2">
             <img src={logo} alt="" className="h-4 w-4 shrink-0" /> {t2.label2}
           </li>
-          <li className="flex items-center gap-2">
+          <li className="flex items-start gap-2">
             <img src={logo} alt="" className="h-4 w-4 shrink-0" /> {t2.label3}
           </li>
         </ul>
@@ -201,10 +200,10 @@ function HomePage() {
           <div className="relative mt-14 h-px w-full bg-background/40" aria-hidden />
           <div className="grid grid-cols-2 gap-6 md:grid-cols-4 md:gap-8">
             {[
-              { src: gallery1, label: "Layered gold", tilt: "-rotate-2" },
-              { src: gallery2, label: "Chandelier silver", tilt: "rotate-2" },
-              { src: gallery3, label: "Stacked rings", tilt: "-rotate-1" },
-              { src: gallery4, label: "Tennis bracelet", tilt: "rotate-1" },
+              { src: gallery1, to:"/product/wildflower-stud", label: "Wildflower", tilt: "-rotate-2" },
+              { src: gallery2, to:"/product/classic-huggie", label: "Classic Huggie", tilt: "rotate-2" },
+              { src: gallery3, to:"/product/three-stones", label: "Three Stones", tilt: "-rotate-1" },
+              { src: gallery4, to:"/product/golden-pearl-shell", label: "Golden Pearl Shell ", tilt: "rotate-1" },
             ].map((g, i) => (
               <figure key={g.label} className={`relative ${i % 2 === 0 ? "mt-8" : "mt-14"} ${g.tilt} transition-transform duration-500 hover:rotate-0 hover:-translate-y-2`}>
                 <span aria-hidden className="absolute left-1/2 -top-6 h-6 w-px -translate-x-1/2 bg-background/50" />
@@ -215,7 +214,9 @@ function HomePage() {
                   ) : (
                     <img src={g.src} alt={g.label} loading="lazy" width={1024} height={1280} className="aspect-[4/5] w-full object-cover" />
                   )} */}
+                  <Link to={g.to}>
                     <img src={g.src} alt={g.label} loading="lazy" width={1024} height={1280} className="aspect-[4/5] w-full object-cover" />
+                  </Link>
                 </div>
                 <figcaption className="mt-3 text-center text-[10px] tracking-luxe text-background/80">{g.label}</figcaption>
               </figure>

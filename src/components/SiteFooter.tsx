@@ -40,19 +40,19 @@ export function SiteFooter() {
             Heirloom-quality 925 silver jewellery, crafted in small batches and finished by hand.
           </p>
           <div className="mt-5 flex gap-3">
-            <a href="https://facebook.com/llumi" target="_blank" rel="noreferrer" aria-label="Facebook" className="inline-flex h-9 w-9 items-center justify-center text-background/80 hover:text-background">
+            <a href="https://facebook.com/llumijewellery" target="_blank" rel="noreferrer" aria-label="Facebook" className="inline-flex h-9 w-9 items-center justify-center text-background/80 hover:text-background">
               <Facebook className="h-4 w-4" />
             </a>
-            <a href="https://instagram.com/llumi" target="_blank" rel="noreferrer" aria-label="Instagram" className="inline-flex h-9 w-9 items-center justify-center text-background/80 hover:text-background">
+            <a href="https://instagram.com/llumi.jewellery" target="_blank" rel="noreferrer" aria-label="Instagram" className="inline-flex h-9 w-9 items-center justify-center text-background/80 hover:text-background">
               <Instagram className="h-4 w-4" />
             </a>
-            <a href="https://tiktok.com/@llumi" target="_blank" rel="noreferrer" aria-label="TikTok" className="inline-flex h-9 w-9 items-center justify-center text-background/80 hover:text-background">
+            <a href="https://tiktok.com/@llumi.silver" target="_blank" rel="noreferrer" aria-label="TikTok" className="inline-flex h-9 w-9 items-center justify-center text-background/80 hover:text-background">
               <TikTokIcon className="h-4 w-4" />
             </a>
           </div>
-          <a href="mailto:hello@llumi.com" className="mt-4 inline-flex items-center gap-2 text-sm text-background/80 hover:text-background">
+          <a href="mailto:admin.llumi@gmail.com" className="mt-4 inline-flex items-center gap-2 text-sm text-background/80 hover:text-background">
             <Mail className="h-4 w-4" />
-            <span>hello@llumi.com</span>
+            <span>admin.llumi@gmail.com</span>
           </a>
         </div>
 
@@ -62,6 +62,7 @@ export function SiteFooter() {
             <li><Link to="/shop" search={{ category: "earrings" }}>Earrings</Link></li>
             <li><Link to="/shop" search={{ category: "necklaces" }}>Necklaces</Link></li>
             <li><Link to="/shop" search={{ category: "rings" }}>Rings</Link></li>
+            <li><Link to="/shop" search={{ category: "bracelets" }}>Bracelets</Link></li>
             <li><Link to="/sale">Sale</Link></li>
           </ul>
         </div>
@@ -80,6 +81,9 @@ export function SiteFooter() {
         <div>
           <h4 className="text-[11px] tracking-luxe text-background/60">House</h4>
           <ul className="mt-4 space-y-2 text-sm">
+            <li><Link to="/collections">Collections</Link></li>
+            <li><Link to="/new-arrivals">New Arrivals</Link></li>
+            <li><Link to="/best-sellers">Best Sellers</Link></li>
             <li><Link to="/why-llumi">Why LLUMI</Link></li>
             <li><Link to="/privacy">Privacy policy</Link></li>
           </ul>

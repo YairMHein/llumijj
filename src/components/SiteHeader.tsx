@@ -32,7 +32,7 @@ const supportLinks = [
 
 const socials = [
   { href: "https://facebook.com/llumijewellery", label: "Facebook", Icon: Facebook },
-  { href: "https://instagram.com/llumijewellery", label: "Instagram", Icon: Instagram },
+  { href: "https://instagram.com/llumi.jewellery", label: "Instagram", Icon: Instagram },
   { href: "https://tiktok.com/@llumi.silver", label: "TikTok", Icon: TikTokIcon },
 ];
 

@@ -35,8 +35,9 @@ const content = {
       "A timeless jewellery brand rooted in sterling silver — made to stay beautiful, made to stay with you.",
     ],
     madeToLast: [
-      "We choose sterling silver: timeless, durable, and understated. Our jewellery is made for everyday wear — to grow with you and become part of your story.",
-      "Myanmar's first warranty-backed silver jewellery fashion brand — designed in Yangon, finished by hand, and protected for the life of the piece.",
+      "At LLUMI, we chose 925 Sterling Silver — a timeless metal known for its lasting beauty, durability, and understated elegance.",
+      "Every piece is designed for everyday wear, created to evolve with you through life's milestones and become a meaningful part of your journey.",
+      "As Myanmar's first warranty-backed 925 Sterling Silver fashion jewellery brand, every LLUMI piece is backed by our complimentary lifetime warranty, giving you lasting confidence with every wear.",
     ],
     whySilverBody:
       "True style is not about luxury. It is about authenticity.",
@@ -49,34 +50,35 @@ const content = {
     ],
   },
   my: {
-    eyebrow: "ဘာကြောင့် LLUMI",
-    title: "နေ့စဉ်ဝတ်ဆင်ဖို့ ဖန်တီးထားသော တိတ်ဆိတ်လှပသော လက်ဝတ်ရတနာများ။",
-    beliefLabel: "ကျွန်ုပ်တို့၏ ယုံကြည်ချက်",
-    madeToLastLabel: "ကြာရှည်ခံစေရန်",
-    materialLabel: "ပစ္စည်း",
-    silverGivesYou: "925 sterling silver မှ သင်ရရှိမည့်အရာများ",
-    whySilverTitle: "ဘာကြောင့် ငွေ?",
+    eyebrow: "ဘာကြောင့် LLUMI လဲ",
+    title: "တိတ်တဆိတ်နဲ့လှပနေတဲ့ အလှတရား၊ နေ့စဉ်ဝတ်ဆင်နိုင်ဖို့ ဖန်တီးထားပါတယ်။",
+    beliefLabel: "LLUMI ၏ ယုံကြည်ချက်",
+    madeToLastLabel: "ကြာရှည်ခံစေရန် ရည်ရွယ်ထားသည်",
+    materialLabel: "သုံးထားသည့် အထည်",
+    silverGivesYou: "925 sterling silver က သင့်ကို ဘာတွေပေးစွမ်းနိုင်လဲ",
+    whySilverTitle: "ဘာကြောင့် ငွေထည်လဲ?",
     belief: [
-      "လက်ဝတ်ရတနာဆိုသည်မှာ အလှအပထက်ပိုသည်။",
-      "၎င်းသည် သင်ဘယ်သူဆိုတာ ပြသတဲ့ ကြေးမုံဖြစ်သည်။",
-      "သင်ရွေးချယ်တဲ့ လက်ဝတ်ရတနာများသည် သင့်စရိုက်၊ သင့်ခံစားချက်၊ သင့်ပုံစံနှင့် သင်နှင့်အတူပါလာသည့် အခိုက်အတန့်များကို ကိုယ်စားပြုသည်။",
-      "အကောင်းဆုံးလက်ဝတ်ရတနာသည် အမှတ်တရများကို ထိန်းသိမ်းထားပေးသည်။",
-      "သို့သော် ကိုယ်ပိုင်ပုံစံဖော်ပြခြင်းသည် ဆွဲမယူနိုင်တဲ့ဈေးနှုန်းနှင့် မလာသင့်ပါ။",
-      "သင်ချစ်တဲ့ လက်ဝတ်ရတနာသည်လည်း အချိန်ကြာလာသည်နှင့်အမျှ မှိန်ပျောက်၊ ညစ်နွမ်း၊ သို့မဟုတ် အဓိပ္ပါယ်ဆုံးရှုံးမသွားသင့်ပါ။",
-      "ထိုစိတ်မကျေမနပ်မှုသည်ပင် LLUMI တည်ရှိရခြင်း၏ အကြောင်းရင်းဖြစ်သည်။",
-      "Sterling silver မှ တည်ဆောက်ထားသော ခေတ်မရွေးလက်ဝတ်ရတနာ အမှတ်တံဆိပ်တစ်ခု — အလှမပျက်၊ သင်နှင့်အတူ တည်နေရန် ဖန်တီးထားသည်။",
+      "လက်ဝတ်ရတနာဆိုတာ အလှဆင်ဖို့သက်သက်ထက်ကို ပိုပါတယ်။",
+      "ကိုယ်ဘယ်သူဆိုတာကို ပြသနေတဲ့ မှန်တစ်ချပ်ပါ။",
+      "သင်ရွေးချယ်တဲ့ jewellery တွေက သင့် personality, mood, style နဲ့ အမှတ်တရတွေအထိ ပြောပြနေပါတယ်။",
+      "အကောင်းဆုံး လက်ဝတ်ရတနာဆိုတာ အမှတ်တရတွေကို သိမ်းဆည်းထားပေးနိုင်တဲ့ အရာတစ်ခုပါ။",
+      "ဒါပေမယ့် ကိုယ့်ကိုယ်ကိုယ် ဖော်ပြဖို့အတွက် တန်ဖိုးကြီးတဲ့ဈေးနှုန်းကို ပေးစရာ မလိုသင့်ပါဘူး။",
+      "သင်ချစ်မြတ်နိုးတဲ့ လက်ဝတ်ရတနာဟာလည်း အချိန်နဲ့အမျှ အရောင်မှိန်မသွားဘဲ၊ တန်ဖိုးနဲ့ အဓိပ္ပာယ်ကို ဆက်လက်ထိန်းသိမ်းထားနိုင်သင့်ပါတယ်။",
+      "အဲဒီယုံကြည်ချက်နဲ့ပဲ LLUMI ကို စတင်တည်ထောင်ခဲ့ပါတယ်။",
+      "925 Sterling Silver နဲ့ဖန်တီးထားတဲ့ LLUMI ရဲ့ လက်ဝတ်ရတနာတွေဟာ အဆုံးမဲ့သောအလှတရားတွေကို ပိုင်ဆိုင်ထားပြီး၊ သင့်ဘဝရဲ့ အခိုက်အတန့်တိုင်းမှာ အတူတကွ ထာဝရမှတ်တမ်းတင်ပေးဖို့ ရည်ရွယ်ထားပါတယ်။",
     ],
     madeToLast: [
-      "ကျွန်ုပ်တို့သည် sterling silver ကို ရွေးချယ်သည် — ခေတ်ကာလမရွေး၊ ခိုင်ခံ့ပြီး ရိုးရှင်းသော လှပမှု။ ကျွန်ုပ်တို့၏ လက်ဝတ်ရတနာများကို နေ့စဉ်ဝတ်ဆင်နိုင်ရန် ဖန်တီးထားသည် — သင်နှင့်အတူ ကြီးထွားလာပြီး သင်၏ပုံပြင်တစ်စိတ်တစ်ပိုင်း ဖြစ်လာစေရန်။",
-      "မြန်မာနိုင်ငံ၏ ပထမဆုံး အာမခံပါသော ငွေလက်ဝတ်ရတနာ ဖက်ရှင်အမှတ်တံဆိပ် — ရန်ကုန်တွင် ဒီဇိုင်းရေးဆွဲ၊ လက်ဖြင့်ပြီးခြောက်ပြီး တစ်သက်တာအာမခံပါသည်။",
+      "LLUMI မှာ ကျွန်တော်တို့ ရွေးချယ်ထားတာက 925 Sterling Silver — အချိန်ကို ကျော်လွန်တဲ့ အလှတရား၊ ခိုင်ခံ့မှုနဲ့ ရိုးရှင်းတဲ့ ကျက်သရေကို ပိုင်ဆိုင်ထားတဲ့ သတ္တုတစ်မျိုးပါ။",
+      "နေ့စဉ်ဝတ်ဆင်နိုင်ဖို့၊ အချိန်နဲ့အမျှ သင့်ဘဝရဲ့ အမှတ်တရတွေနဲ့အတူ တန်ဖိုးပိုမိုကြီးထွားလာဖို့၊ သင့်ဇာတ်လမ်းရဲ့ အစိတ်အပိုင်းတစ်ခု ဖြစ်လာဖို့ ရည်ရွယ်ပြီး လက်ဝတ်ရတနာတစ်ခုချင်းစီကို ဖန်တီးထားပါတယ်။",
+      "မြန်မာနိုင်ငံ၏ ပထမဆုံး အာမခံပေးတဲ့ 925 Sterling Silver Fashion Jewellery Brand ဖြစ်တဲ့ LLUMI ဟာ လက်ဝတ်ရတနာတစ်ခုချင်းစီကို တစ်သက်တာ အာမခံဝန်ဆောင်မှုဖြင့် ယုံကြည်စိတ်ချစွာ ရောင်းချပေးနေပါတယ်။",
     ],
-    whySilverBody: "စစ်မှန်သော ဖက်ရှင်ဆိုသည်မှာ ဇိမ်ခံမှုမဟုတ်ဘဲ စစ်မှန်မှုသာဖြစ်သည်။",
+    whySilverBody: "စစ်မှန်တဲ့စတိုင်ဟာ Luxury ဖြစ်နေမှမဟုတ်ဘူး။ ကိုယ့်ရဲ့ပုံစံအစစ်အမှန်ကို ပြသနေတဲ့အရာပါ။",
     silverPoints: [
-      "နေ့စဉ်လှပမှု",
-      "ကြာရှည်ခံသည့် အရည်အသွေး",
-      "တတ်နိုင်သော ဇိမ်ခံမှု",
-      "ခေတ်မရွေး ဒီဇိုင်း",
-      "ထိန်းသိမ်းထားနိုင်သော တန်ဖိုးအမှန်",
+      "နေ့စဉ်ဝတ်ဆင်နိုင်တဲ့ ကျက်သရေရှိမှု",
+      "ကြာရှည်ခံတဲ့ အရည်အသွေး",
+      "လက်လှမ်းမီတဲ့ Luxury",
+      "အချိန်မရွေး လိုက်ဖက်တဲ့ ဒီဇိုင်း",
+      "အချိန်နဲ့အမျှ တန်ဖိုးထားနိုင်တဲ့ လက်ဝတ်ရတနာ",
     ],
   },
 } as const;
@@ -131,10 +133,11 @@ function WhyLlumi() {
           </div>
           <div className="order-1 space-y-4 text-muted-foreground md:order-2">
             <p className="text-[11px] tracking-luxe text-foreground">{t.madeToLastLabel}</p>
-            <h2 className="font-serif text-2xl leading-tight text-foreground md:text-3xl">
+            <h2 className="font-serif text-xl leading-tight text-foreground md:text-3xl">
               {t.madeToLast[0]}
             </h2>
             <p className="text-sm md:text-base">{t.madeToLast[1]}</p>
+            <p className="text-sm md:text-base">{t.madeToLast[2]}</p>
           </div>
         </div>
       </section>

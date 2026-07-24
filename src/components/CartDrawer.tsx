@@ -11,7 +11,7 @@ export function CartDrawer({ open, onClose }: { open: boolean; onClose: () => vo
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
   const { data: suggested = [] } = useQuery({
-    queryKey: ["products", "featured"],
+    queryKey: ["products-cart", "featured"],
     queryFn: () => fetchProductsCart({ featured: true }),
     enabled: open,
   });

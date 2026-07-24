@@ -36,7 +36,7 @@ export function ProductCard({ product, hideBadge = false }: { product: Product; 
             />
           )}
           {onSale && !hideBadge && (
-            <span className="absolute left-3 top-3 z-10 bg-sale px-2 py-1 text-[10px] tracking-luxe text-sale-foreground">
+            <span className="absolute left-3 top-3 z-10 bg-sale px-2 py-1 text-[12px] tracking-luxe text-sale-foreground">
               Sale
             </span>
           )}

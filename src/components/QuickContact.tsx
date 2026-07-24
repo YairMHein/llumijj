@@ -2,10 +2,10 @@ import { useState } from "react";
 import { MessageCircle, Phone, Send, X } from "lucide-react";
 
 const options = [
-  { label: "Phone", href: "tel:+959000000000", Icon: Phone, hint: "+95 9 000 000 000" },
-  { label: "Messenger", href: "https://m.me/llumi", Icon: MessageCircle, hint: "@LLUMI" },
-  { label: "Viber", href: "viber://chat?number=%2B959000000000", Icon: ViberIcon, hint: "+95 9 000 000 000" },
-  { label: "Telegram", href: "https://t.me/llumi", Icon: Send, hint: "@LLUMI" },
+  { label: "Phone", href: "tel:+9595093144", Icon: Phone, hint: "+959-5093144" },
+  { label: "Messenger", href: "https://m.me/llumijewellery", Icon: MessageCircle, hint: "LLUMI - ယူမီ" },
+  { label: "Viber", href: "viber://chat?number=%2B9595093144", Icon: ViberIcon, hint: "+959-5093144" },
+  { label: "Telegram", href: "https://t.me/llumijewellery", Icon: Send, hint: "LLUMI - ယူမီ" },
 ];
 
 function ViberIcon(props: React.SVGProps<SVGSVGElement>) {
